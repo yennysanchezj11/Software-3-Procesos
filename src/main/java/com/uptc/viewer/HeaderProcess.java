@@ -21,14 +21,14 @@ public class HeaderProcess extends JPanel {
 	
 	private JTextField CPUTime, processTime, nameProcess;
 	private JLabel tittle;
-	private JPanel tittlePanel, CPUPanel, dataProcess;
+	private JPanel tittlePanel, dataProcess;
 	private JButton saveButton;
 	private JCheckBox blockedProcess;
 	
 	public HeaderProcess(ActionListener actionListener) {
 		super();
 		this.tittlePanel = new JPanel();
-		this.CPUPanel = new JPanel();
+		new JPanel();
 		this.dataProcess = new JPanel();
 		this.initComponents(actionListener);
 	}
@@ -39,14 +39,10 @@ public class HeaderProcess extends JPanel {
 		tittlePanel.setBackground(Color.WHITE);
 		tittlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		tittle = new JLabel();
-		tittlePanel.add(Utilities.text(tittle, new Font("arial", Font.BOLD, 30), "Process", Color.BLACK));
+		tittlePanel.add(Utilities.text(tittle, new Font("arial", Font.BOLD, 30), Constants.TITTLE_APP, Color.BLACK));
 		this.add(tittlePanel);
 		
-		CPUPanel.setBackground(Color.WHITE);
-		CPUPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.CPUTime= new JTextField();
-		CPUPanel.add(Utilities.textField(CPUTime, new Font("arial", Font.ITALIC, 15), "Ingresa el tiempo maximo de la CPU", Color.GRAY, 150, 70));
-		this.add(CPUPanel);
+	
 		
 		dataProcess.setLayout(new FlowLayout(FlowLayout.LEFT));
 		dataProcess.setBackground(Color.WHITE);

@@ -2,21 +2,21 @@ package com.uptc.viewer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
-import com.uptc.viewer.reports.ExecuteState;
-import com.uptc.viewer.reports.ExitState;
-import com.uptc.viewer.reports.LockedState;
-import com.uptc.viewer.reports.MissingTimePerProcess;
-import com.uptc.viewer.reports.ReadyState;
-import com.uptc.viewer.reports.StatusChageProcess;
-import com.uptc.viewer.reports.StatusChange;
+import com.uptc.viewer.reports.ReportTable;
 
-public class JFramePrincipal extends JFrame{
+public class JFramePrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,95 +24,76 @@ public class JFramePrincipal extends JFrame{
 	private HeaderProcess headerProcess;
 	private JTableData centerTable;
 	private MenuBarReports menuBarr;
-	private MissingTimePerProcess missingTimePerProcess;
-	private StatusChageProcess statusChageProcess;
-	private StatusChange statusChange;
-	private ExecuteState executeState;
-	private ExitState exitState;
-	private ReadyState readyState;
-	private LockedState lockedState;
-	
-	String [] headers = {"Nombre del proceso", "Tiempo del proceso", "Bloqueado", "Editar", "Eliminar"};
-	
-	public JFramePrincipal(ActionListener actionListener) {
-		super("Process");
-		this.setSize(900,600);
+	private ReportTable reportTable;
+
+
+	public JFramePrincipal(ActionListener actionListener, String [] headers) {
+		super(Constants.TITTLE_APP);
+		this.setSize(900, 600);
+		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
+		this.setIconImage(icon);
+		this.setUndecorated(true);
 		this.jPanelPrincipal = new JPanel();
 		this.headerProcess = new HeaderProcess(actionListener);
-		this.centerTable = new JTableData(headers);
+		this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.menuBarr = new MenuBarReports(actionListener);
-		this.missingTimePerProcess = new MissingTimePerProcess(actionListener, this);
-		this.statusChageProcess = new StatusChageProcess(actionListener, this);
-		this.statusChange = new StatusChange(actionListener, this);
-		this.executeState = new ExecuteState(actionListener, this);
-		this.exitState = new ExitState(actionListener, this);
-		this.readyState = new ReadyState(actionListener, this);
-		this.lockedState = new LockedState(actionListener, this);
+		this.reportTable = new ReportTable(actionListener, this);
 		this.initComponents(actionListener);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.addWindowsListenerOption();
 		this.setVisible(true);
 	}
-	
-	
+
 	private void initComponents(ActionListener actionListener) {
 		jPanelPrincipal.setBackground(Color.WHITE);
 		jPanelPrincipal.setLayout(new BorderLayout());
 		jPanelPrincipal.add(headerProcess, BorderLayout.NORTH);
-		
+
 		jPanelPrincipal.add(centerTable, BorderLayout.CENTER);
 
 		jPanelPrincipal.add(menuBarr, BorderLayout.SOUTH);
-		
+
 		this.add(jPanelPrincipal);
 	}
-	
+
 	public void cleanRowsTable() {
 		centerTable.cleanRowsTable();
 	}
 
-	public ArrayList<Object[]> getInformation(){
-		return centerTable.getProcessInformation();
+	private void addWindowsListenerOption() {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				close();
+			}
+		});
 	}
-	
-	
-	public void addElementToTablePrincipalTable() {
-		centerTable.addElementToTable(getInformation());
+
+	public void close() {
+		if (JOptionPane.showConfirmDialog(this, "¿Desea realmente salir del sistema?", "Salir del sistema",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			System.exit(0);
 	}
-	
-	public void setInformationProcessTable(){
-		Object[] data={headerProcess.getNameProcess(),headerProcess.getProcessTime(),headerProcess.getBlockedProcess()};
-		centerTable.addElementUniqueToTable(data);
+
+	public ArrayList<Object[]> getInformation(ActionListener actionListener) {
+		return centerTable.getProcessInformation( );
+	}
+
+	public void addElementToTablePrincipalTable(ActionListener actionListener ) {
+		centerTable.addElementToTable(getInformation(actionListener));
+	}
+
+	public void setInformationProcessTable(ActionListener actionListener) {
+		Object[] data = { headerProcess.getNameProcess(), headerProcess.getProcessTime(),
+				headerProcess.getBlockedProcess() };
+		centerTable.addElementUniqueToTable(data, actionListener);
 	}
 
 	public int getTimeCPU() {
 		return headerProcess.setTimeCPU();
 	}
-	
-	public void dialogVisibilitiReportMissingTimePerProcess(boolean visibility) {
-		missingTimePerProcess.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiStatusChangeProcess(boolean visibility) {
-		statusChageProcess.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiStatusChange(boolean visibility) {
-		statusChange.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiExecuteState(boolean visibility) {
-		executeState.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiExitState(boolean visibility) {
-		exitState.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiLockedState(boolean visibility) {
-		lockedState.setVisible(visibility);
-	}
-	
-	public void dialogVisibilitiReadyState(boolean visibility) {
-		readyState.setVisible(visibility);
+
+	public void reportTableVisibility(boolean visibility) {
+		reportTable.setVisible(visibility);
 	}
 }

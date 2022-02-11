@@ -15,28 +15,34 @@ import com.uptc.viewer.JFramePrincipal;
 import com.uptc.viewer.JTableData;
 import com.uptc.viewer.Utilities;
 
-public class MissingTimePerProcess extends JDialog {
+public class ReportTable extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel centerPanel, northPanel;
 	private JTableData table;
-	String [] headers = {"P/T", "0", "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36", "39"};
+	private String [] headersReports;
+	
 
-	public MissingTimePerProcess(ActionListener actionListener, JFramePrincipal jFramePrincipal) {
+	public ReportTable(ActionListener actionListener, JFramePrincipal jFramePrincipal) {
 		setModal(true);
 		this.setTitle(Constants.TOP_T_MENUITEM_REPORT1);
 		this.setLayout(new BorderLayout(5, 5));
 		this.setBackground(Color.WHITE);
 		this.setSize(1200, 700);
 		this.getContentPane().setBackground(Color.WHITE);
+		this.table = new JTableData(headersReports);
 		this.setLocationRelativeTo(jFramePrincipal);
 		this.addComponentsCenter(actionListener);
 	}
-
+	
+	
+	public String [] assignHeaders(String [] headersReports) {
+		return headersReports;
+	}
+	
 	private void addComponentsCenter(ActionListener actionListener) {
-		
 		this.add(northPanel(), BorderLayout.NORTH);
-		this.add(centerPanel(actionListener), BorderLayout.CENTER);
+		this.add(centerPanel(actionListener, assignHeaders(headersReports)), BorderLayout.CENTER);
 	}
 
 	private Component northPanel() {
@@ -49,7 +55,7 @@ public class MissingTimePerProcess extends JDialog {
 		return northPanel;
 	}
 
-	private Component centerPanel(ActionListener actionListener) {
+	private Component centerPanel(ActionListener actionListener, String [] headers) {
 		centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setBackground(Color.WHITE);
 

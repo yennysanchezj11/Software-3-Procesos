@@ -4,30 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.uptc.controller.Commands;
 
 public class JTableData extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtmElements;
 	private String[] headers;
-
-	public DefaultTableModel getDtmElements() {
-		return dtmElements;
-	}
-
-	public void setDtmElements(DefaultTableModel dtmElements) {
-		this.dtmElements =dtmElements;
-	}
-
 	private JTable jtElements;
 	private JScrollPane jsTable;
 
@@ -54,7 +48,7 @@ public class JTableData extends JPanel {
 		jtElements.setFillsViewportHeight(true);
 		jtElements.setRowHeight(50);
 		jtElements.setBorder(null);
-		this.centerTextInCell();
+		jtElements.setDefaultRenderer(Object.class, new RenderTable());
 		jsTable = new JScrollPane(jtElements, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jsTable.setForeground(Color.RED);
@@ -65,38 +59,51 @@ public class JTableData extends JPanel {
 
 	}
 
+	public DefaultTableModel getDtmElements() {
+		return dtmElements;
+	}
+
+	public void setDtmElements(DefaultTableModel dtmElements) {
+		this.dtmElements = dtmElements;
+	}
+
 	public void addElementToTable(ArrayList<Object[]> datasList) {
 		for (Object[] datasObject : datasList) {
 			dtmElements.addRow(datasObject);
 		}
 	}
 
-	public void addElementUniqueToTable(Object[] datasList) {
-			dtmElements.addRow(datasList);
+	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
+		Object[] row = new Object[] { datasList[0], datasList[1], datasList[2], createButton(actionListener) };
+		dtmElements.addRow(row);
+	}
+
+	public ArrayList<Object[]> getProcessInformation() {
+		ArrayList<Object[]> infoProcess = new ArrayList<>();
+		for (int i = 0; i < dtmElements.getRowCount(); i++) {
+			Object[] row = new Object[4];
+			row[0] = dtmElements.getValueAt(i, 0);
+			row[1] = dtmElements.getValueAt(i, 1);
+			row[2] = dtmElements.getValueAt(i, 2);
+			row[3] = dtmElements.getValueAt(i, 3);
+			infoProcess.add(row);
+		}
+		return infoProcess;
 	}
 
 	public void cleanRowsTable() {
 		dtmElements.setNumRows(0);
 	}
 
-	private void centerTextInCell() {
-		DefaultTableCellRenderer centerModel = new DefaultTableCellRenderer();
-		centerModel.setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < dtmElements.getColumnCount(); i++) {
-			jtElements.getColumnModel().getColumn(i).setCellRenderer(centerModel);
-		}
+	public JButton createButton(ActionListener actionListener) {
+		JButton deletteButton = new JButton("Eliminar");
+		deletteButton.addActionListener(actionListener);
+		deletteButton.setActionCommand(Commands.C_CLOSE_APP.toString());
+		deletteButton.setBackground(Color.decode("#DF3A01"));
+		deletteButton.setForeground(Color.WHITE);
+		deletteButton.setHorizontalAlignment(JLabel.CENTER);
+		deletteButton.setVisible(true);
+		return deletteButton;
 	}
 
-	public ArrayList<Object[]> getProcessInformation() {
-		ArrayList<Object[]> infoProcess=new ArrayList<>();
-		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row=new Object[3];
-			row[0]=dtmElements.getValueAt(i, 0);
-			row[1]=dtmElements.getValueAt(i, 1);
-			row[2]=dtmElements.getValueAt(i, 2);
-			System.out.println("AQUIIII"+row[0]);
-			infoProcess.add(row);
-		}
-		return infoProcess;
-	}
 }

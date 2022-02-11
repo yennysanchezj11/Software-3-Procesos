@@ -17,7 +17,7 @@ public class MenuBarReports extends JMenuBar {
 
 	private JMenu report;
 	private JMenuItem report1, report2, report3, report4, report5, report6, report7;
-	private JButton executeButton;
+	private JButton executeButton, closeApppButton;
 
 	public MenuBarReports(ActionListener actionListener) {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -88,5 +88,10 @@ public class MenuBarReports extends JMenuBar {
 		report.addSeparator();
 		
 		this.add(report);
+		
+		closeApppButton = new JButton();
+		closeApppButton.addActionListener(actionListener);
+		closeApppButton.setActionCommand(Commands.C_CLOSE_APP.toString());
+		this.add(Utilities.button(closeApppButton, new Dimension(100, 30), "Close"));
 	}
 }
