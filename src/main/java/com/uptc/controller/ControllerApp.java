@@ -106,18 +106,11 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-		case C_DELETTE_PROCESS:
-			// reporte por orden en el estado en salida
-			System.out.println("se eliminooooo");
-			break;
-
 		default:
-		//System.out.println("entro a eliminar");
-		//deleteProcess(Integer.valueOf(e.getActionCommand()));
+
 			break;
 		}
 	}catch (Exception ex) {
-		System.out.println("entro a eliminar");
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
@@ -134,7 +127,6 @@ public class ControllerApp implements ActionListener {
 	public void executeListProcess(ArrayList<Object[]> listProcess) {
 		for (int i = 0; i < listProcess.size(); i++) {
 			Object[] vector = (Object[]) listProcess.get(i);
-			System.out.println("---" + listProcess.get(i)[0]);
 			executeProcess.addProcessToQueue(new Process("" + listProcess.get(i)[0], Integer.parseInt("" + vector[1]),
 					Boolean.parseBoolean("" + vector[2])));
 

@@ -29,21 +29,40 @@ public class JTableData extends JPanel {
 
 	public JTableData(String[] headers) {
 		this.headers = headers;
-		listProcess= new ArrayList<>();
 		initComponents();
 	}
 
 	private void initComponents() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(Color.decode("#30373D"));
-		dtmElements = new DefaultTableModel(){
-			/*public boolean isCellEditable(int row, int column){
-				return true;
-			}	*/
-		};
+		dtmElements = new DefaultTableModel();
 		dtmElements.setColumnIdentifiers(headers);
-		//dtmElements.isCellEditable(1,1);
 		jtElements = new JTable();
+		defaulModel();
+		jtElements.getTableHeader().setResizingAllowed(false);
+		jtElements.getTableHeader().setReorderingAllowed(false);
+		jtElements.getTableHeader().setBackground(Constants.DATA_PANEL_HEADERS_TABLE_COLOR);
+		jtElements.getTableHeader().setPreferredSize(new Dimension(0, 60));
+		jtElements.getTableHeader().setForeground(Color.BLACK);
+		jtElements.getTableHeader().setFont(Constants.DATA_PANEL_HEADERS_TABLE_FONT);
+		jtElements.setBackground(Color.WHITE);
+		jtElements.setFont(Constants.DATA_PANEL_HEADERS_TABLE_FONT);
+		jtElements.setFillsViewportHeight(true);
+		jtElements.setRowHeight(50);
+		jtElements.setBorder(null);
+		jtElements.setDefaultRenderer(Object.class, new RenderTable());
+		jsTable = new JScrollPane(jtElements, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jsTable.setForeground(Color.RED);
+		jsTable.setBorder(null);
+		jsTable.setAlignmentX(Component.LEFT_ALIGNMENT);
+		this.add(jsTable, BorderLayout.PAGE_END);
+		this.setBorder(null);
+
+	}
+
+	public void defaulModel(){
+		dtmElements.setColumnIdentifiers(headers);
 		jtElements.setModel(dtmElements);
 		jtElements.getColumn(Constants.PRICIPAL_HEADERS[4]).setCellEditor(new TableCellEditor() {
 			
@@ -93,28 +112,7 @@ public class JTableData extends JPanel {
 			}
 
 		});
-		jtElements.getTableHeader().setResizingAllowed(false);
-		jtElements.getTableHeader().setReorderingAllowed(false);
-		jtElements.getTableHeader().setBackground(Constants.DATA_PANEL_HEADERS_TABLE_COLOR);
-		jtElements.getTableHeader().setPreferredSize(new Dimension(0, 60));
-		jtElements.getTableHeader().setForeground(Color.BLACK);
-		jtElements.getTableHeader().setFont(Constants.DATA_PANEL_HEADERS_TABLE_FONT);
-		jtElements.setBackground(Color.WHITE);
-		jtElements.setFont(Constants.DATA_PANEL_HEADERS_TABLE_FONT);
-		jtElements.setFillsViewportHeight(true);
-		jtElements.setRowHeight(50);
-		jtElements.setBorder(null);
-		jtElements.setDefaultRenderer(Object.class, new RenderTable());
-		jsTable = new JScrollPane(jtElements, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		jsTable.setForeground(Color.RED);
-		jsTable.setBorder(null);
-		jsTable.setAlignmentX(Component.LEFT_ALIGNMENT);
-		this.add(jsTable, BorderLayout.PAGE_END);
-		this.setBorder(null);
-
 	}
-
 	public DefaultTableModel getDtmElements() {
 		return dtmElements;
 	}
@@ -148,6 +146,7 @@ public class JTableData extends JPanel {
 
 	public void cleanRowsTable() {
 		dtmElements.setNumRows(0);
+		dtmElements.setColumnCount(0);
 	}
 
 	public JButton createButton(ActionListener actionListener,String id) {
@@ -163,13 +162,14 @@ public class JTableData extends JPanel {
 	}
 
 	public void deleteProcess(int id,ActionListener actionListener) {
-		Object[] row = new Object[4];
+		listProcess= new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
 			int idProcess=Integer.parseInt(""+dtmElements.getValueAt(i, 0));
 			if(idProcess==id){
 				dtmElements.removeRow(i);
 		      }
 			else {
+				Object[] row = new Object[4];
 				row[0] = dtmElements.getValueAt(i, 0);
 				row[1] = dtmElements.getValueAt(i, 1);
 				row[2] = dtmElements.getValueAt(i, 2);
@@ -178,12 +178,13 @@ public class JTableData extends JPanel {
 			  }  
 	        }
 		cleanRowsTable();
-	//	loadProcess(actionListener);
+		loadProcess(actionListener);
 	}
 
 	private void loadProcess(ActionListener actionListener) {
-		for (Object[] datasObject : listProcess) {
-			addElementUniqueToTable(datasObject, actionListener);
+		defaulModel();
+		for (int i = 0; i < listProcess.size(); i++) {
+			addElementUniqueToTable(listProcess.get(i), actionListener);
 		}
 	}
 }
