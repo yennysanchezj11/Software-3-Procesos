@@ -93,8 +93,8 @@ public class JFramePrincipal extends JFrame {
 		table.setVisible(visibility);
 	}
 
-    public void deleteProcess(int id) {
-		centerTable.deleteProcess(id);
+    public void deleteProcess(int id,ActionListener actionListener) {
+		centerTable.deleteProcess(id,actionListener);
     }
 
 }

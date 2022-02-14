@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.EventObject;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,9 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableModel;
-
-import com.uptc.controller.Commands;
+import javax.swing.table.TableCellEditor;
 
 public class JTableData extends JPanel {
 
@@ -24,20 +25,74 @@ public class JTableData extends JPanel {
 	private String[] headers;
 	private JTable jtElements;
 	private JScrollPane jsTable;
+	private ArrayList<Object[]> listProcess;
 
 	public JTableData(String[] headers) {
 		this.headers = headers;
+		listProcess= new ArrayList<>();
 		initComponents();
 	}
 
 	private void initComponents() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBackground(Color.decode("#30373D"));
-		dtmElements = new DefaultTableModel();
+		dtmElements = new DefaultTableModel(){
+			/*public boolean isCellEditable(int row, int column){
+				return true;
+			}	*/
+		};
 		dtmElements.setColumnIdentifiers(headers);
-		dtmElements.isCellEditable(1, 1);
+		//dtmElements.isCellEditable(1,1);
 		jtElements = new JTable();
 		jtElements.setModel(dtmElements);
+		jtElements.getColumn(Constants.PRICIPAL_HEADERS[4]).setCellEditor(new TableCellEditor() {
+			
+			@Override
+			public boolean stopCellEditing() {
+				return true;
+			}
+			
+			@Override
+			public boolean shouldSelectCell(EventObject arg0) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public void removeCellEditorListener(CellEditorListener arg0) {
+			}
+			
+			@Override
+			public boolean isCellEditable(EventObject arg0) {
+				// TODO Auto-generated method stub
+				return true;
+			}
+			
+			@Override
+			public Object getCellEditorValue() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public void cancelCellEditing() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void addCellEditorListener(CellEditorListener arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+				// TODO Auto-generated method stub
+				return (JButton)value;
+			}
+
+		});
 		jtElements.getTableHeader().setResizingAllowed(false);
 		jtElements.getTableHeader().setReorderingAllowed(false);
 		jtElements.getTableHeader().setBackground(Constants.DATA_PANEL_HEADERS_TABLE_COLOR);
@@ -83,10 +138,9 @@ public class JTableData extends JPanel {
 		ArrayList<Object[]> infoProcess = new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
 			Object[] row = new Object[4];
-			row[0] = dtmElements.getValueAt(i, 0);
-			row[1] = dtmElements.getValueAt(i, 1);
-			row[2] = dtmElements.getValueAt(i, 2);
-			row[3] = dtmElements.getValueAt(i, 3);
+			row[0] = dtmElements.getValueAt(i, 1);
+			row[1] = dtmElements.getValueAt(i, 2);
+			row[2] = dtmElements.getValueAt(i, 3);
 			infoProcess.add(row);
 		}
 		return infoProcess;
@@ -100,6 +154,7 @@ public class JTableData extends JPanel {
 		JButton deletteButton = new JButton("Eliminar");
 		deletteButton.addActionListener(actionListener);
 		deletteButton.setActionCommand(id);
+		System.out.println("Accion boton"+deletteButton.getActionCommand());
 		deletteButton.setBackground(Color.decode("#DF3A01"));
 		deletteButton.setForeground(Color.WHITE);
 		deletteButton.setHorizontalAlignment(JLabel.CENTER);
@@ -107,8 +162,28 @@ public class JTableData extends JPanel {
 		return deletteButton;
 	}
 
-	public void deleteProcess(int id) {
-		dtmElements.removeRow(id-1);
+	public void deleteProcess(int id,ActionListener actionListener) {
+		Object[] row = new Object[4];
+		for (int i = 0; i < dtmElements.getRowCount(); i++) {
+			int idProcess=Integer.parseInt(""+dtmElements.getValueAt(i, 0));
+			if(idProcess==id){
+				dtmElements.removeRow(i);
+		      }
+			else {
+				row[0] = dtmElements.getValueAt(i, 0);
+				row[1] = dtmElements.getValueAt(i, 1);
+				row[2] = dtmElements.getValueAt(i, 2);
+				row[3] = dtmElements.getValueAt(i, 3);
+				listProcess.add(row);
+			  }  
+	        }
+		cleanRowsTable();
+	//	loadProcess(actionListener);
 	}
 
+	private void loadProcess(ActionListener actionListener) {
+		for (Object[] datasObject : listProcess) {
+			addElementUniqueToTable(datasObject, actionListener);
+		}
+	}
 }

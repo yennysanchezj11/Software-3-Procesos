@@ -1,9 +1,6 @@
 package com.uptc.viewer;
 
-import java.awt.Color;
 import java.awt.Component;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,9 +20,6 @@ public class RenderTable extends DefaultTableCellRenderer {
 				return button;
 			}
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-		}
-	
-	
-	
+		}	
 
 }

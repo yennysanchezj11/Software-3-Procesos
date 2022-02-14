@@ -112,9 +112,12 @@ public class ControllerApp implements ActionListener {
 			break;
 
 		default:
+		//System.out.println("entro a eliminar");
+		//deleteProcess(Integer.valueOf(e.getActionCommand()));
 			break;
 		}
 	}catch (Exception ex) {
+		System.out.println("entro a eliminar");
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
@@ -176,7 +179,7 @@ public class ControllerApp implements ActionListener {
 	public void deleteProcess(int id) {
 		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con Id: " + id +"?",
 				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-			jPrincipal.deleteProcess(id);
+			jPrincipal.deleteProcess(id,this);
 		}
 	}
 }

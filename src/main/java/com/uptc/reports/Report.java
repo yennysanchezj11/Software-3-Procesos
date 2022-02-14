@@ -155,11 +155,11 @@ public class Report {
               // out.println("tiempo_expirado(" + name + "): en_ejecucion -> listo");
                 break;
             case LOCKED:
-                exit[1]="bloquear ("+(name)+"): en_ejecucion -> bloqueado";
+                exit[0]="bloquear ("+(name)+"): en_ejecucion -> bloqueado";
                // out.println("bloquear(" + name + "): en_ejecucion-> bloqueado");
                 break;
             case EXIT:
-                exit[2]="finalizar ("+(name)+"): en_ejecucion -> salida";
+                exit[0]="finalizar ("+(name)+"): en_ejecucion -> salida";
                // out.println("finalizar(" + name + "): en_ejecucion-> salida");
                 break;
         }
