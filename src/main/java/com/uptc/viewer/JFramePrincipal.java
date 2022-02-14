@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import com.uptc.viewer.reports.ReportTable;
+import com.uptc.viewer.reports.ReportDialog;
 
 public class JFramePrincipal extends JFrame {
 
@@ -24,7 +24,7 @@ public class JFramePrincipal extends JFrame {
 	private HeaderProcess headerProcess;
 	private JTableData centerTable;
 	private MenuBarReports menuBarr;
-	private ReportTable reportTable;
+
 
 
 	public JFramePrincipal(ActionListener actionListener, String [] headers) {
@@ -37,7 +37,6 @@ public class JFramePrincipal extends JFrame {
 		this.headerProcess = new HeaderProcess(actionListener);
 		this.centerTable = new JTableData(Constants.PRICIPAL_HEADERS);
 		this.menuBarr = new MenuBarReports(actionListener);
-		this.reportTable = new ReportTable(actionListener, this);
 		this.initComponents(actionListener);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowsListenerOption();
@@ -84,16 +83,18 @@ public class JFramePrincipal extends JFrame {
 	}
 
 	public void setInformationProcessTable(ActionListener actionListener) {
-		Object[] data = { headerProcess.getNameProcess(), headerProcess.getProcessTime(),
+		headerProcess.incrementId();
+		Object[] data = { headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
 				headerProcess.getBlockedProcess() };
 		centerTable.addElementUniqueToTable(data, actionListener);
 	}
 
-	public int getTimeCPU() {
-		return headerProcess.setTimeCPU();
+	public void reportTableVisibility(boolean visibility,ReportDialog table) {
+		table.setVisible(visibility);
 	}
 
-	public void reportTableVisibility(boolean visibility) {
-		reportTable.setVisible(visibility);
-	}
+    public void deleteProcess(int id) {
+		centerTable.deleteProcess(id);
+    }
+
 }

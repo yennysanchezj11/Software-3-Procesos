@@ -1,23 +1,19 @@
-package com.uptc.viewer;
+package com.uptc.viewer.reports;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import com.uptc.viewer.Constants;
 
-import com.uptc.controller.Commands;
-
-public class JTableData extends JPanel {
+public class JTableDataReport extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtmElements;
@@ -25,8 +21,9 @@ public class JTableData extends JPanel {
 	private JTable jtElements;
 	private JScrollPane jsTable;
 
-	public JTableData(String[] headers) {
+	public JTableDataReport(String[] headers) {
 		this.headers = headers;
+		System.out.println("table report");
 		initComponents();
 	}
 
@@ -35,7 +32,6 @@ public class JTableData extends JPanel {
 		this.setBackground(Color.decode("#30373D"));
 		dtmElements = new DefaultTableModel();
 		dtmElements.setColumnIdentifiers(headers);
-		dtmElements.isCellEditable(1, 1);
 		jtElements = new JTable();
 		jtElements.setModel(dtmElements);
 		jtElements.getTableHeader().setResizingAllowed(false);
@@ -49,7 +45,6 @@ public class JTableData extends JPanel {
 		jtElements.setFillsViewportHeight(true);
 		jtElements.setRowHeight(50);
 		jtElements.setBorder(null);
-		jtElements.setDefaultRenderer(Object.class, new RenderTable());
 		jsTable = new JScrollPane(jtElements, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jsTable.setForeground(Color.RED);
@@ -74,41 +69,13 @@ public class JTableData extends JPanel {
 		}
 	}
 
-	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
-		Object[] row = new Object[] { datasList[0], datasList[1], datasList[2],datasList[3], createButton(actionListener,String.valueOf(datasList[0])) };
-		dtmElements.addRow(row);
-	}
-
-	public ArrayList<Object[]> getProcessInformation() {
-		ArrayList<Object[]> infoProcess = new ArrayList<>();
-		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row = new Object[4];
-			row[0] = dtmElements.getValueAt(i, 0);
-			row[1] = dtmElements.getValueAt(i, 1);
-			row[2] = dtmElements.getValueAt(i, 2);
-			row[3] = dtmElements.getValueAt(i, 3);
-			infoProcess.add(row);
+	/*public void addElementUniqueToTable(Object[] datasList) {
+		for (Object[] datasObject : datasList) {
+			dtmElements.addRow(datasObject);
 		}
-		return infoProcess;
-	}
+	}*/
 
 	public void cleanRowsTable() {
 		dtmElements.setNumRows(0);
 	}
-
-	public JButton createButton(ActionListener actionListener,String id) {
-		JButton deletteButton = new JButton("Eliminar");
-		deletteButton.addActionListener(actionListener);
-		deletteButton.setActionCommand(id);
-		deletteButton.setBackground(Color.decode("#DF3A01"));
-		deletteButton.setForeground(Color.WHITE);
-		deletteButton.setHorizontalAlignment(JLabel.CENTER);
-		deletteButton.setVisible(true);
-		return deletteButton;
-	}
-
-	public void deleteProcess(int id) {
-		dtmElements.removeRow(id-1);
-	}
-
 }

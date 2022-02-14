@@ -24,6 +24,7 @@ public class HeaderProcess extends JPanel {
 	private JPanel tittlePanel, dataProcess;
 	private JButton saveButton;
 	private JCheckBox blockedProcess;
+	private int numProcess;
 	
 	public HeaderProcess(ActionListener actionListener) {
 		super();
@@ -31,6 +32,7 @@ public class HeaderProcess extends JPanel {
 		new JPanel();
 		this.dataProcess = new JPanel();
 		this.initComponents(actionListener);
+		numProcess=0;
 	}
 	
 	private void initComponents(ActionListener actionListener) {
@@ -76,5 +78,13 @@ public class HeaderProcess extends JPanel {
 	public int setTimeCPU() {
 		return Integer.parseInt(CPUTime.getText());
 	}
+
+    public int getId() {
+        return numProcess;
+    }
+
+	public int incrementId() {
+        return numProcess++;
+    }
 
 }

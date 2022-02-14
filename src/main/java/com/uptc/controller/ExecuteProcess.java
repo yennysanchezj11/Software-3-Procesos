@@ -36,8 +36,8 @@ public class ExecuteProcess {
         p.states(0, 0, READY, INIT);
     }
 
-    public void init(int timeCPU) {
-        this.timeCPU = timeCPU;
+    public void init() {
+        this.timeCPU = 5;
         while (!processes.isEmpty()) {
             Process p = processes.poll();
             attendProcessCPU(p);
@@ -45,23 +45,34 @@ public class ExecuteProcess {
     }
 
     private void attendProcessCPU(Process p) {
-        System.out.println("ATENDIENDO PROCESO"+ p.getName());
+        System.out.println("ATENDIENDO PROCESO" + p.getName());
+        System.out.println(p.getName()+"tiempo"+p.getTime());
         if (p.getTime() > timeCPU) { // 500 - 100
             p.setTime(timeCPU);
             p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
             if (p.isLocked()) {
+                System.out.println("entro a bloqueo" + p.getName());
+                System.out.println(p.getName()+"tiempo"+p.getTime());
                 p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
                 p.states(timeProcess, timeProcess, READY, LOCKED);
             } else {
+                System.out.println("entro a no bloqueo" + p.getName());
+                System.out.println(p.getName()+"tiempo"+p.getTime());
                 p.states(timeProcess, timeProcess, READY, EXECUTE);
             }
 
             processes.add(p);
-        } else {   // 50 100
+        } else { // 50 100
             int timePi = p.getTime();
             p.setTime(timePi);
             p.states(timeProcess, timeProcess += timePi, EXECUTE, READY);
-            p.states(timeProcess, timeProcess, EXIT, EXECUTE);
+            if (p.isLocked()) {
+                p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
+                p.states(timeProcess, timeProcess, EXIT, EXECUTE);
+            } else {
+                p.states(timeProcess, timeProcess, EXIT, EXECUTE);
+            }
+            
         }
     }
 
@@ -74,19 +85,19 @@ public class ExecuteProcess {
         return report.getReportMissingTimeProcess();
     }
 
-    public ArrayList<String[]> reportStatusChangeProcess() {
+    public ArrayList<Object[]> reportStatusChangeProcess() {
         return report.getReportForStatusChangeProcess();
     }
 
-    public ArrayList<String[]> reportByReadyStates(){
+    public ArrayList<Object[]> reportByReadyStates(){
         return report.getReportByReadyStates();
     }
 
-    public ArrayList<String[]> reportByExitState(){
+    public ArrayList<Object[]> reportByExitState(){
         return report.getReportByExitState();
     }
 
-    public ArrayList<String[]> reportByLockedStates(){
+    public ArrayList<Object[]> reportByLockedStates(){
         return report.getReportByLockedStates();
     }
 
@@ -94,8 +105,12 @@ public class ExecuteProcess {
         return report.getReportForStatusChange();
     }
 
-    public ArrayList<String[]> reportByCpuExecuteOrder() {
+    public ArrayList<Object[]> reportByCpuExecuteOrder() {
         return report.reportByCpuExecuteOrder();
+    }
+
+    public String[] reportHeadersTable() {
+        return report.headerTable();
     }
 
    

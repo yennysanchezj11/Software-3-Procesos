@@ -23,15 +23,11 @@ public class Constants {
 	public static final String TOP_T_MENUITEM_REPORT7 = "REPORTE DEL PROCESO DE CAMBIO DE ESTADOS";
 	public static final int DO_NOTHING_ON_CLOSE = 0;
 	
-	public static final String [] headersR1 = {"P/T", "0", "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36", "39"};
-	public static final String [] headersR2 = {"P/T", "0", "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36", "39"};
-	public static final String [] headersR3 = {"T", "P"};
-	public static final String [] headersR4 = {"T", "P"};
-	public static final String [] headersR5 = {"T", "P"};
-	public static final String [] headersR6 = {"Ti","Tf", "P"};
-	public static final String [] headersR7 = {"Accion", "Estado actual", "Estado nuevo"};
+	public static final String [] headersEstados = {"Tiempo", "Proceso"};
+	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
+	public static final String [] headersR7 = {"Transacciones entre estados"};
 	
-	public static final String [] PRICIPAL_HEADERS = { "Nombre del proceso", "Tiempo del proceso", "Bloqueado", "Eliminar" };
+	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado", "Eliminar" };
 
 	
 }

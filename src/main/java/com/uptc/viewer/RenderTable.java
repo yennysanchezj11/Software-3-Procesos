@@ -22,7 +22,6 @@ public class RenderTable extends DefaultTableCellRenderer {
 				JButton button = (JButton)value;
 				return button;
 			}
-			
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		}
 	

@@ -69,14 +69,14 @@ public class MenuBarReports extends JMenuBar {
 		report5 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT5);
 		report5.setFont(Constants.FONT_MENUBAR);
 		report5.addActionListener(actionListener);
-		report5.setActionCommand(Commands.C_REPORT_BY_EXECUTE_STATES.toString());
+		report5.setActionCommand(Commands.C_REPORT_BY_LOCKED_STATES.toString());
 		report.add(report5);
 		report.addSeparator();
 
 		report6 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT6);
 		report6.setFont(Constants.FONT_MENUBAR);
 		report6.addActionListener(actionListener);
-		report6.setActionCommand(Commands.C_REPORT_BY_LOCKED_STATES.toString());
+		report6.setActionCommand(Commands.C_REPORT_BY_EXECUTE_STATES.toString());
 		report.add(report6);
 		report.addSeparator();
 

@@ -4,6 +4,7 @@ import com.uptc.models.Process;
 import com.uptc.models.Register;
 import com.uptc.models.States;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -45,113 +46,65 @@ public class Report {
         return aux;
     }
 
-    public ArrayList<String[]> getReportForStatusChangeProcess() {
-        ArrayList<String[]> aux= new ArrayList<>();
+    public ArrayList<Object[]> getReportForStatusChangeProcess() {
+        ArrayList<Object[]> aux= new ArrayList<>();
         processes.stream()
                 .sorted(Comparator.comparing(Process::getName))
                 .forEach(x -> aux.add(x.getTableByState(timeApprox, timeCPU)));
         return aux;
     }
 
-    public ArrayList<String[]> getReportByReadyStates() {
-        ArrayList<String[]> aux= new ArrayList<>();
+    public ArrayList<Object[]> getReportByReadyStates() {
+        ArrayList<Object[]> aux= new ArrayList<>();
             registers.get(READY).stream()
                     .sorted(Comparator.comparingInt(Register::getTimeEnd))
-                    .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})));
+                    .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                    .forEach(System.out::print);
     return aux;
     }
 
-    public ArrayList<String[]> getReportByLockedStates() {
-        ArrayList<String[]> aux= new ArrayList<>();
+    public ArrayList<Object[]> getReportByLockedStates() {
+        ArrayList<Object[]> aux= new ArrayList<>();
         registers.get(LOCKED).stream()
                 .sorted(Comparator.comparingInt(Register::getTimeEnd))
-                .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})));
+                .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                .forEach(System.out::print);
     return aux;
     }
     
-    public ArrayList<String[]> getReportByExitState() {
-        ArrayList<String[]> aux= new ArrayList<>();
+    public ArrayList<Object[]> getReportByExitState() {
+        ArrayList<Object[]> aux= new ArrayList<>();
         registers.get(EXIT).stream()
                 .sorted(Comparator.comparingInt(Register::getTimeEnd))
-                .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})));
+                .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                .forEach(System.out::print);
     return aux;
     }
 
-    public ArrayList<String[]> reportByCpuExecuteOrder() {
-        ArrayList<String[]> aux= new ArrayList<>();
+    public ArrayList<Object[]> reportByCpuExecuteOrder() {
+        ArrayList<Object[]> aux= new ArrayList<>();
         registers.get(EXECUTE).stream()
                 .distinct()
                 .sorted(Comparator.comparingInt(Register::getTimeInit))
-                .map(x -> (aux.add(new String[]{ ""+x.getTimeInit(),""+x.getTimeEnd(),x.getProcess().getName()})));
+                .map(x -> (aux.add(new String[]{ ""+x.getTimeInit(),""+x.getTimeEnd(),x.getProcess().getName()})))
+                .forEach(System.out::print);
         return aux;
     }
-
-    public ArrayList<Object[]> getReportForStatusChange() {
-        return null;
-    }
-
-
-   
-    private void reportTables() {
-        String head = headerTable();  
-      /*  out.println("TABLA DEL TIEMPO FALTANTE POR PROCESO DESDE EL TIEMPO t=0");
-        out.println(head);
-        processes.stream()
-                .sorted(Comparator.comparing(Process::getName))
-                .forEach(x -> out.println(x.getTableByTime(timeApprox, timeCPU)));
-        int size = head.split("\n")[0].length();
-        out.println("-".repeat(size));
-        out.println("\n".repeat(3));
-
-        out.println("TABLA DEL CAMBIO DE ESTADOS DE LOS PROCESOS. DONDE");
-        out.println("\tL=LISTOS, E= EJECUCION, B= BLOQUEO, S= SALIDA");
-        out.println(head);
-        processes.stream()
-                .sorted(Comparator.comparing(Process::getName))
-                .forEach(x -> out.println(x.getTableByState(timeApprox, timeCPU)));
-        out.println("-".repeat(size)); */
-    }
-
-    private String headerTable() {
-        StringBuilder head = new StringBuilder("P\\t ");
+  
+    public String[] headerTable() {
+        int size=Math.round(timeApprox/timeCPU)+2;
+        int pos=0;
+        String[] headers= new String[size];
+        headers[pos]="Proceso / Tiempo";
+        pos++;
         for (int i = 0; i <= timeApprox; i += timeCPU) {
-            head.append("| ").append(i).append(" ".repeat(4 - String.valueOf(i).length()));
+                headers[pos]=""+i;
+                pos++;
         }
-        head.append("\n");
-        int size = head.length();
-        head.append("-".repeat(size));
-        head.insert(0, "-".repeat(size) + "\n");
-        return head.toString();
+       
+        return headers;
     }
 
-    private void reportByGroup() {
-      /*  out.println("\n".repeat(2));
-        out.println("REPORTES POR ESTADOS.");
-        for (States state : new States[]{EXIT, READY, LOCKED}) {
-            out.println("_".repeat(50));
-            out.println("REPORTE POR ORDEN EN EL ESTADO: " + state.getName());
-            out.println();
-            out.println(" t -> P");
-            out.println("--------");
-            registers.get(state).stream()
-                    .sorted(Comparator.comparingInt(Register::getTimeEnd))
-                    .map(x -> x.getTimeEnd() + " -> " + x.getProcess().getName())
-                    .forEach(out::println);
-            out.println("_".repeat(50));
-            out.println();
-        }
-        out.println("_".repeat(50));
-        out.println("REPORTE POR ORDEN DE EJECUCION EN LA CPU");
-        out.println();
-        out.println("ti - tf : P");
-        out.println("------------");
-        registers.get(EXECUTE).stream()
-                .distinct()
-                .sorted(Comparator.comparingInt(Register::getTimeInit))
-                .map(x -> x.getTimeInit() + " - " + x.getTimeEnd() + " : " + x.getProcess().getName())
-                .forEach(out::println);
-        out.println("_".repeat(50)); */
-    }
 
     private List<Register> getTotalRegisters() {
         List<Register> totalRegisters = new ArrayList<>();
@@ -159,50 +112,58 @@ public class Report {
         return totalRegisters;
     }
 
-    public void getReportTotalProcess() {
-       /* out.println();
-        out.println("REPORTE DEL PROCESO DE CAMBIO DE ESTADOS");
-        out.println();
+    public ArrayList<Object[]> getReportForStatusChange() {
+        ArrayList<Object[]> aux= new ArrayList<>();
         getTotalRegisters().stream().distinct()
                 .sorted((x, y) -> {
                     if (x.getTimeEnd() == y.getTimeEnd())
                         return x.getProcess().getName().compareTo(y.getProcess().getName());
                     else
                         return x.getTimeEnd() - y.getTimeEnd();
-                }).forEach(this::printRegister); */
+                }).forEach(x -> aux.add(printRegister(x))); 
+        return aux;
     }
 
-    private void printRegister(Register x) {
+    private Object[] printRegister(Register x) {
         States state = x.getPreviousState();
         String nameProcess = x.getProcess().getName();
+        Object[] exit=new Object[1];
         switch (state) {
             case READY: // despachar
-              // out.println("despachar(" + nameProcess + "): listo -> en_ejecucion");
+                 exit[0]="despachar("+(nameProcess)+"): listo -> en_ejecucion";
                 break;
             case INIT: // nuevo
+                 exit[0]="insertar ("+(nameProcess)+"):  nuevo -> listo";
                //  out.println("insertar(" + nameProcess + "): nuevo -> listo");
                 break;
             case LOCKED:  // despertar
+                 exit[0]="despertar ("+(nameProcess)+"): bloqueado ->  listo";
                // out.println("despertar(" + nameProcess + "): bloqueado-> listo");
                 break;
             case EXECUTE: // salio- bloqueado-listos
-                evaluateStatus(x, nameProcess);
+                exit=evaluateStatus(x, nameProcess);
                 break;
         }
+        return exit;
     }
 
-    private void evaluateStatus(Register x, String name) {
+    private Object[] evaluateStatus(Register x, String name) {
+        Object[] exit=new Object[1];
         switch (x.getStatus()) {
             case READY:
+                 exit[0]="tiempo_expirado ("+(name)+"): en_ejecucion -> listo";
               // out.println("tiempo_expirado(" + name + "): en_ejecucion -> listo");
                 break;
             case LOCKED:
+                exit[1]="bloquear ("+(name)+"): en_ejecucion -> bloqueado";
                // out.println("bloquear(" + name + "): en_ejecucion-> bloqueado");
                 break;
             case EXIT:
+                exit[2]="finalizar ("+(name)+"): en_ejecucion -> salida";
                // out.println("finalizar(" + name + "): en_ejecucion-> salida");
                 break;
         }
+        return exit;
     }
 
     private int getFinal() {

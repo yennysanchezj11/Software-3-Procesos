@@ -50,22 +50,31 @@ public class Process {
         return name;
     }
 
-    public String[] getTableByState(int totalTime, int timeCPU) {
-        String aux[] = {};
-        aux[0]=name;
+    public Object[] getTableByState(int totalTime, int timeCPU) {
+        int size= Math.round(totalTime/timeCPU)+1;
+        Object aux[] = new Object[size];
+        int pos=0;
+        aux[pos]=name;
+        pos++;
         for (int i = 1; i <= totalTime; i += timeCPU) {
             String status = getLastByState(i, timeCPU);
-            aux[i] = status;
+            aux[pos] = status;
+            pos++;
         }
        return aux;
     }
 
     public Object[] getTableByTime(int totalTime, int timeCPU) {
-        Object aux[] = {};
-        aux[0]=name;
+        int size= Math.round(totalTime/timeCPU)+1;
+        Object aux[] = new Object[size];
+        int pos=0;
+        aux[pos]=name;
+        pos++;
         for (int i = 1; i <= totalTime; i += timeCPU) {
             int lastTime = getLastByTime(i, timeCPU);
-            aux[i] = lastTime!=-1 ? lastTime : 0;
+            System.out.println("tiempo faltante"+lastTime);
+            aux[pos] = lastTime!=-1 ? lastTime : 0;
+            pos++;
         }
         return aux;
     }
@@ -77,6 +86,7 @@ public class Process {
                     .stream().filter(x -> x.timeEnd == key)
                     .map(x -> x.actualTime)
                     .findFirst();
+                    System.out.println("tiempo actual segundo metodo"+actualTime);
             if (actualTime.isPresent()) return actualTime.get();
         }
         return -1;
