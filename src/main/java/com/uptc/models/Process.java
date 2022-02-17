@@ -11,14 +11,27 @@ public class Process {
     private final String name;
     private int time;
     private final boolean isLocked;
+    private final int newPriority;
+    private final boolean isExecute;
+    private final boolean isResume;
+	private final boolean isDestroy;
+	private final boolean isLayoff;
+	private final String connectProcess;
+
 
     private final Map<Integer, List<Register>> register;
 
-    public Process(String name, int time, boolean isLocked) {
+    public Process(String name, int time, boolean isLocked, int newPriority,boolean isExecute,boolean isResumen,boolean isDestroy, boolean isLayoff, String connectProcess) {
         this.name = name;
         this.time = time;
         this.isLocked = isLocked;
-        // this.registers = new LinkedList<>();
+        this.newPriority= newPriority;
+        this.isExecute=isExecute;
+        this.isResume=isResumen;
+        this.isDestroy=isDestroy;
+        this.isLayoff=isLayoff;
+        this.connectProcess=connectProcess;
+
         this.register = new HashMap<>();
     }
 
@@ -49,6 +62,31 @@ public class Process {
     public String getName() {
         return name;
     }
+
+    
+	public boolean getIsExecute() {
+		return isExecute;
+	}
+
+	public int getNewPriority() {
+		return newPriority;
+	}
+
+	public boolean getIsDestroy() {
+		return isDestroy;
+	}
+
+    public boolean getIsResume() {
+		return isResume;
+	}
+
+	public boolean getisLayoff() {
+		return isLayoff;
+	}
+
+	public String getConnectProcess() {
+		return connectProcess;
+	}
 
     public Object[] getTableByState(int totalTime, int timeCPU) {
         int size= Math.round(totalTime/timeCPU)+1;
@@ -86,8 +124,11 @@ public class Process {
                     .stream().filter(x -> x.timeEnd == key)
                     .map(x -> x.actualTime)
                     .findFirst();
-                    System.out.println("tiempo actual segundo metodo"+actualTime);
-            if (actualTime.isPresent()) return actualTime.get();
+                   // System.out.println("tiempo actual segundo metodo"+actualTime.get());
+            if (actualTime.isPresent()){
+                System.out.println("existe tiempo faltante"+actualTime.get());
+                return actualTime.get();
+            } 
         }
         return -1;
     }
@@ -99,6 +140,7 @@ public class Process {
                     .stream().map(x-> x.status.toString())
                     .forEach(status::append);
         }
+        System.out.println("estado aca "+status.toString());
         return status.toString();
     }
 

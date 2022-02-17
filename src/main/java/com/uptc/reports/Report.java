@@ -3,8 +3,6 @@ package com.uptc.reports;
 import com.uptc.models.Process;
 import com.uptc.models.Register;
 import com.uptc.models.States;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -29,13 +27,6 @@ public class Report {
         this.timeApprox = getFinal();
         this.registers = getTotalRegisters().stream()
                 .collect(Collectors.groupingBy(Register::getStatus));
-    }
-
-    public void init() {
-       // out.println("TIEMPO TOTAL DE EJECUCION: " + totalTime + " MINUTOS");
-        //reportTables();
-        //reportByGroup();
-        //getReportTotalProcess();
     }
 
     public ArrayList<Object[]> getReportMissingTimeProcess(){
@@ -69,6 +60,33 @@ public class Report {
                 .sorted(Comparator.comparingInt(Register::getTimeEnd))
                 .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
                 .forEach(System.out::print);
+    return aux;
+    }
+
+    public ArrayList<Object[]> getReportByDestroyStates() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+            registers.get(DESTROY).stream()
+                    .sorted(Comparator.comparingInt(Register::getTimeEnd))
+                    .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                    .forEach(System.out::print);
+    return aux;
+    }
+
+    public ArrayList<Object[]> getReportByLayOffStates() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+            registers.get(LAYOFF).stream()
+                    .sorted(Comparator.comparingInt(Register::getTimeEnd))
+                    .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                    .forEach(System.out::print);
+    return aux;
+    }
+
+    public ArrayList<Object[]> getReportByResumeStates() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+            registers.get(RESUME).stream()
+                    .sorted(Comparator.comparingInt(Register::getTimeEnd))
+                    .map(x -> (aux.add(new String[]{ ""+x.getTimeEnd(),x.getProcess().getName()})))
+                    .forEach(System.out::print);
     return aux;
     }
     

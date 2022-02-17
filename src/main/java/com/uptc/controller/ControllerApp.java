@@ -128,8 +128,9 @@ public class ControllerApp implements ActionListener {
 		for (int i = 0; i < listProcess.size(); i++) {
 			Object[] vector = (Object[]) listProcess.get(i);
 			executeProcess.addProcessToQueue(new Process("" + listProcess.get(i)[0], Integer.parseInt("" + vector[1]),
-					Boolean.parseBoolean("" + vector[2])));
-
+					Boolean.parseBoolean("" + vector[2]),Integer.parseInt("" + vector[3]),Boolean.parseBoolean("" + vector[4]),
+					Boolean.parseBoolean("" + vector[5]),Boolean.parseBoolean("" + vector[6]),Boolean.parseBoolean("" + vector[6]),
+					("" + vector[7])));
 		}
 		executeProcess.init();
 		executeProcess.reports();

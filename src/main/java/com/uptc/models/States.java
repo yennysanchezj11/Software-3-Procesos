@@ -3,7 +3,8 @@ package com.uptc.models;
 
 public enum States  {
 
-    INIT("INICIO"), READY("LISTOS"),EXECUTE("EJECUCION") ,LOCKED("BLOQUEADO"),EXIT("SALIDA");
+    INIT("INICIO"), READY("LISTOS"),EXECUTE("EJECUCION") ,LOCKED("BLOQUEADO"),EXIT("SALIDA"),
+    DESTROY("DESTRUIR"),LAYOFF("SUSPENDER"),RESUME("REANUDAR");
 
     private final String name;
 
