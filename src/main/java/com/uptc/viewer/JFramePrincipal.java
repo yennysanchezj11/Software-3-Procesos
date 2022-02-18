@@ -29,7 +29,7 @@ public class JFramePrincipal extends JFrame {
 
 	public JFramePrincipal(ActionListener actionListener, String [] headers) {
 		super(Constants.TITTLE_APP);
-		this.setSize(900, 600);
+		this.setSize(1300, 600);
 		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
 		this.setIconImage(icon);
 		this.setUndecorated(true);

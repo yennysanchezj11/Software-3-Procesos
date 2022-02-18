@@ -9,7 +9,9 @@ public class Constants {
 	public static final Font DATA_PANEL_HEADERS_TABLE_FONT = new Font("Open Sans", Font.BOLD, 12);
 	public static final Color COLOR_MENUBAR = Color.decode("#e8e6e6");
 	public static final Font FONT_MENUBAR = new Font("din-next-w01-light - 400", Font.PLAIN, 16);
-	
+	public static final Font FONT_TITTLE = new Font("Agency FB", Font.BOLD, 30);
+	public static final Color COLOR_TITTLE_PANEL = Color.decode("#FFDCB3");
+	public static final Color COLOR_SET_DATA_PANEL = Color.decode("#CBD7FA");
 	
 	public static final String TITTLE_APP = "PROCESOS";
 	public static final String LOGO_APP = "images/iconApp.png";
@@ -27,7 +29,7 @@ public class Constants {
 	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	
-	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado", "Eliminar" };
+	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso","Prioridad", "Nueva prioridad", "Bloqueado", "Ejecutar", "Destruir", "Suspender", "Conectar", "Conectado con", "Eliminar" };
 
 	
 }

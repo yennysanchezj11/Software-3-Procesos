@@ -6,6 +6,10 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -14,6 +18,11 @@ import javax.swing.JPanel;
 import com.uptc.viewer.Constants;
 import com.uptc.viewer.JFramePrincipal;
 import com.uptc.viewer.Utilities;
+
+
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 public class ReportDialog extends JDialog {
 
@@ -28,9 +37,29 @@ public class ReportDialog extends JDialog {
 		this.setLayout(new BorderLayout(5, 5));
 		this.setBackground(Color.WHITE);
 		this.setSize(1200, 700);
-		setTitleFrame(title);
+		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
+		this.setIconImage(icon);
+		this.setUndecorated(true);
+		this.setTitleFrame(title);
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setLocationRelativeTo(jFramePrincipal);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.addWindowsListenerOption();
+	}
+
+	public void close() {
+		if (JOptionPane.showConfirmDialog(this, "¿Desea realmente salir del sistema?", "Salir del sistema",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			System.exit(0);
+	}
+
+	private void addWindowsListenerOption() {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				close();
+			}
+		});
 	}
 	
 	public void setTitleFrame(String title){
