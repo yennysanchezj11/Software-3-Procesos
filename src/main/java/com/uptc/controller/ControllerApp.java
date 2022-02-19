@@ -34,7 +34,7 @@ public class ControllerApp implements ActionListener {
 			break;
 		case C_EXECUTE_PROCESS:
 			// Ejecutar lista de procesos
-			executeProcess(this);
+			executeProcess();
 			break;
 
 		case C_CLOSE_APP:
@@ -42,14 +42,6 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.close();
 			break;
 
-		case C_REPORT_MISSING_TIME_PER_PROCESS:
-			// reporte por tiempo faltante por proceso
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT1);
-			reportTable.assignHeaders(this, getHeadersTable(),Constants.TOP_T_MENUITEM_REPORT1);
-			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportMissingTimeProcess());
-			jPrincipal.reportTableVisibility(true,reportTable);
-			break;
 		case C_REPORT_FOR_STATUS_CHANGE_PROCESS:
 			// reporte por cambio de estado de los proceso
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT2);
@@ -59,7 +51,7 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-			case C_REPORT_BY_EXIT_STATE:
+		case C_REPORT_BY_EXIT_STATE:
 			// reporte por orden en el estado en salida
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT3);
 			reportTable.assignHeaders(this,Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT3);
@@ -113,8 +105,6 @@ public class ControllerApp implements ActionListener {
 			reportTable.addElementToTable(reportByResumeProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
-		
-		
 
 		case C_REPORT_BY_EXECUTE_STATES:
 			// reporte por orden en el estado de en ejecución
@@ -134,6 +124,15 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
+		case C_CLOSE_DIALOG:
+			reportTable.setVisible(false);
+			break;
+
+		case C_DELETTE_PROCESS: ///////
+			System.out.println("eliminar");
+			this.deleteProcess(Integer.valueOf(e.getActionCommand()));
+			break;
+
 		default:
 
 			break;
@@ -148,9 +147,10 @@ public class ControllerApp implements ActionListener {
 		jPrincipal.setInformationProcessTable(actionListener);
 	}
 
-	public void executeProcess(ActionListener actionListener) {
+	public void executeProcess() {
 		// set lista de procesos
-		executeListProcess(jPrincipal.getInformation(actionListener));
+		executeListProcess(jPrincipal.getInformation());
+
 	}
 
 	public void executeListProcess(ArrayList<Object[]> listProcess) {
@@ -163,6 +163,7 @@ public class ControllerApp implements ActionListener {
 		}
 		executeProcess.init();
 		executeProcess.reports();
+	//	JOptionPane.showMessageDialog(null, "Ejecucion realizada correctamente");
 	}
 
 

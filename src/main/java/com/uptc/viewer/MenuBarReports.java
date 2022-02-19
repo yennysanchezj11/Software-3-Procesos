@@ -38,13 +38,6 @@ public class MenuBarReports extends JMenuBar {
 		report.setFont(Constants.FONT_MENUBAR);
 		report.setForeground(Color.BLACK);
 
-		report1 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT1);
-		report1.setFont(Constants.FONT_MENUBAR);
-		report1.addActionListener(actionListener);
-		report1.setActionCommand(Commands.C_REPORT_MISSING_TIME_PER_PROCESS.toString());
-		report.add(report1);
-		report.addSeparator();
-
 		report2 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT2);
 		report2.setFont(Constants.FONT_MENUBAR);
 		report2.addActionListener(actionListener);

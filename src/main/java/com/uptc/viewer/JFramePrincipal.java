@@ -74,20 +74,34 @@ public class JFramePrincipal extends JFrame {
 			System.exit(0);
 	}
 
-	public ArrayList<Object[]> getInformation(ActionListener actionListener) {
+	public ArrayList<Object[]> getInformation() {
 		return centerTable.getProcessInformation( );
 	}
 
 	public void addElementToTablePrincipalTable(ActionListener actionListener ) {
-		centerTable.addElementToTable(getInformation(actionListener));
+		centerTable.addElementToTable(getInformation());
 	}
 
 	public void setInformationProcessTable(ActionListener actionListener) {
+		if(checkName(getInformation())){
 		headerProcess.incrementId();
 		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
 				headerProcess.getBlockedProcess(),headerProcess.getPriorityProcess(),headerProcess.getIsRun(),
 			    headerProcess.getIsDestroyed(),headerProcess.getIsSuspended(),headerProcess.getIsConnects()};
 		centerTable.addElementUniqueToTable(data, actionListener);
+		} else {
+			//JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
+		}
+	}
+
+	private boolean checkName(ArrayList<Object[]> information) {
+        for (int i = 0; i < information.size(); i++) {
+			Object[] data= information.get(i);
+			if(data[0].equals(headerProcess.getNameProcess())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void reportTableVisibility(boolean visibility,ReportDialog table) {

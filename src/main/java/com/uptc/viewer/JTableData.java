@@ -64,7 +64,7 @@ public class JTableData extends JPanel {
 	public void defaulModel(){
 		dtmElements.setColumnIdentifiers(headers);
 		jtElements.setModel(dtmElements);
-		jtElements.getColumn(Constants.PRICIPAL_HEADERS[4]).setCellEditor(new TableCellEditor() {
+		jtElements.getColumn(Constants.PRICIPAL_HEADERS[9]).setCellEditor(new TableCellEditor() {
 			
 			@Override
 			public boolean stopCellEditing() {
@@ -137,7 +137,7 @@ public class JTableData extends JPanel {
 	public ArrayList<Object[]> getProcessInformation() {
 		ArrayList<Object[]> infoProcess = new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row = new Object[11];
+			Object[] row = new Object[8];
 			row[0] = dtmElements.getValueAt(i, 1);
 			row[1] = dtmElements.getValueAt(i, 2);
 			row[2] = dtmElements.getValueAt(i, 3);
@@ -146,6 +146,7 @@ public class JTableData extends JPanel {
 			row[5] = dtmElements.getValueAt(i, 6);
 			row[6] = dtmElements.getValueAt(i, 7);
 			row[7] = dtmElements.getValueAt(i, 8);
+			
 			infoProcess.add(row);
 		}
 		return infoProcess;
@@ -176,7 +177,7 @@ public class JTableData extends JPanel {
 				dtmElements.removeRow(i);
 		      }
 			else {
-				Object[] row = new Object[11];
+				Object[] row = new Object[9];
 				row[0] = dtmElements.getValueAt(i, 0);
 				row[1] = dtmElements.getValueAt(i, 1);
 				row[2] = dtmElements.getValueAt(i, 2);
@@ -186,10 +187,7 @@ public class JTableData extends JPanel {
 				row[6] = dtmElements.getValueAt(i, 6);
 				row[7] = dtmElements.getValueAt(i, 7);
 				row[8] = dtmElements.getValueAt(i, 8);
-				row[9] = dtmElements.getValueAt(i, 9);
-				row[10] = dtmElements.getValueAt(i, 10);
-				row[11] = dtmElements.getValueAt(i, 11);
-
+			
 				listProcess.add(row);
 			  }  
 	        }

@@ -109,13 +109,13 @@ public class Utilities {
 	}
 
 	public static Component textField(JTextField cTextField, Font font, String text, Color color, int width,
-			int height) {
+			int height, boolean editable) {
 		Dimension sizeTextField = new Dimension();
 		sizeTextField.setSize(width, height);
 		cTextField.setForeground(color);
 		cTextField.setFont(font);
 		cTextField.setText(text);
-		cTextField.setEditable(true);
+		cTextField.setEditable(editable);
 		cTextField.setMaximumSize(sizeTextField);
 		return cTextField;
 	}

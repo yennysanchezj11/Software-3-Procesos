@@ -16,7 +16,6 @@ public class Constants {
 	public static final String TITTLE_APP = "PROCESOS";
 	public static final String LOGO_APP = "images/iconApp.png";
 	public static final String TOP_PANEL_MENU_PRINCIPAL_REPORT = "Menu";
-	public static final String TOP_T_MENUITEM_REPORT1 = "TABLA DEL TIEMPO FALTANTE POR PROCESO DESDE EL TIEMPO t=0";
 	public static final String TOP_T_MENUITEM_REPORT2 = "TABLA DEL CAMBIO DE ESTADOS DE LOS PROCESOS";
 	public static final String TOP_T_MENUITEM_REPORT3 = "REPORTE POR ORDEN EN EL ESTADO: SALIDA";
 	public static final String TOP_T_MENUITEM_REPORT4 = "REPORTE POR ORDEN EN EL ESTADO: LISTOS";
@@ -29,8 +28,8 @@ public class Constants {
 	public static final String TOP_T_MENUITEM_REPORT11 = "REPORTE DEL PROCESO DE CAMBIO DE ESTADOS";
 	public static final int DO_NOTHING_ON_CLOSE = 0;
 	
-	public static final String [] headersEstados = {"Tiempo", "Proceso"};
-	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
+	public static final String [] headersEstados = {"Tiempo", "Proceso", "Prioridad"};
+	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso", "Prioridad"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	
 	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado","Prioridad", "Ejecutar", "Destruir", "Suspender", "Conectar", "Eliminar" };
