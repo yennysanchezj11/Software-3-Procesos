@@ -19,11 +19,11 @@ public class HeaderProcess extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTextField CPUTime, processTime, nameProcess, priorityProcess, newPriorityProcess, nameProcessConection;
+	private JTextField processTime, nameProcess, priorityProcess, nameProcessConection;
 	private JLabel tittle;
 	private JPanel tittlePanel, dataProcess, checkProcess; 
 	private JButton saveButton;
-	private JCheckBox blockedProcess, isRun, isDestroyed, isSuspended, isConnects;
+	private JCheckBox blockedProcess, isRun, isDestroyed, isSuspended;
 	private int numProcess;
 	
 	public HeaderProcess(ActionListener actionListener) {
@@ -60,8 +60,8 @@ public class HeaderProcess extends JPanel {
 		priorityProcess = new JTextField();
 		dataProcess.add(Utilities.textField(priorityProcess, new Font("arial", Font.ITALIC, 15), "Ingresa la prioridad del proceso", Color.GRAY, 150, 70));
 
-		newPriorityProcess = new JTextField();
-		dataProcess.add(Utilities.textField(newPriorityProcess, new Font("arial", Font.ITALIC, 15), "Puedes asignar una nueva prioridad", Color.GRAY, 150, 70));
+	//	newPriorityProcess = new JTextField();
+	//	dataProcess.add(Utilities.textField(newPriorityProcess, new Font("arial", Font.ITALIC, 15), "Puedes asignar una nueva prioridad", Color.GRAY, 150, 70));
 		
 		blockedProcess = new JCheckBox();
 		blockedProcess.setText("¿El proceso se bloqueara?");
@@ -79,18 +79,15 @@ public class HeaderProcess extends JPanel {
 		isSuspended.setText("¿El proceso se suspendera?");
 		checkProcess.add(Utilities.checkBox(isSuspended, new Font("arial", Font.ITALIC, 15), Color.GRAY, Color.WHITE, false));
 		
-		isConnects = new JCheckBox();
-		isConnects.setText("¿El proceso se conectara?");
-		checkProcess.add(Utilities.checkBox(isConnects, new Font("arial", Font.ITALIC, 15), Color.GRAY, Color.WHITE, false));
-		
+
 		nameProcessConection = new JTextField();
-		checkProcess.add(Utilities.textField(nameProcessConection, new Font("arial", Font.ITALIC, 15), "Nombre del proceso con el que se conectara", Color.GRAY, 150, 70));
+		checkProcess.add(Utilities.textField(nameProcessConection, new Font("arial", Font.ITALIC, 15), "El proceso se conecta con", Color.GRAY, 150, 70));
 		
 
 		saveButton = new JButton();
 		saveButton.addActionListener(actionListener);
 		saveButton.setActionCommand(Commands.C_ADD_PROCESS.toString());
-		dataProcess.add(Utilities.button(saveButton, new Dimension(100, 30), "Add"));
+		dataProcess.add(Utilities.button(saveButton, new Dimension(100, 30), "AGREGAR"));
 		this.add(dataProcess);
 		this.add(checkProcess);
 	}
@@ -107,10 +104,6 @@ public class HeaderProcess extends JPanel {
 		return blockedProcess.isSelected();
 	 }
 
-	public int setTimeCPU() {
-		return Integer.parseInt(CPUTime.getText());
-	}
-
     public int getId() {
         return numProcess;
     }
@@ -122,15 +115,6 @@ public class HeaderProcess extends JPanel {
 	public String getPriorityProcess() {
 		return priorityProcess.getText();
 	}
-
-	public String getNewPriorityProcess() {
-		return newPriorityProcess.getText();
-	}
-
-	public String getNameProcessConection() {
-		return nameProcessConection.getText();
-	}
-	
 
 	public boolean getIsRun() {
 		return isRun.isSelected();
@@ -144,7 +128,11 @@ public class HeaderProcess extends JPanel {
 		return isSuspended.isSelected();
 	}
 
-	public boolean getIsConnects() {
-		return isConnects.isSelected();
+	public String getIsConnects() {
+	String connect="No";
+		if(nameProcessConection.getText()!="") {
+			connect=nameProcessConection.getText();
+		}
+		return connect;
 	}
 }

@@ -21,15 +21,19 @@ public class Constants {
 	public static final String TOP_T_MENUITEM_REPORT3 = "REPORTE POR ORDEN EN EL ESTADO: SALIDA";
 	public static final String TOP_T_MENUITEM_REPORT4 = "REPORTE POR ORDEN EN EL ESTADO: LISTOS";
 	public static final String TOP_T_MENUITEM_REPORT5 = "REPORTE POR ORDEN EN EL ESTADO: BLOQUEADO";
-	public static final String TOP_T_MENUITEM_REPORT6 = "REPORTE POR ORDEN DE EJECUCION EN LA CPU";
-	public static final String TOP_T_MENUITEM_REPORT7 = "REPORTE DEL PROCESO DE CAMBIO DE ESTADOS";
+	public static final String TOP_T_MENUITEM_REPORT6 = "REPORTE POR ORDEN EN EL ESTADO: DESTRUIDO";
+	public static final String TOP_T_MENUITEM_REPORT7 = "REPORTE POR ORDEN EN EL ESTADO: SUSPENDIDO";
+	public static final String TOP_T_MENUITEM_REPORT8 = "REPORTE POR ORDEN EN EL ESTADO: REANUDADO";
+	public static final String TOP_T_MENUITEM_REPORT9 = "REPORTE POR ORDEN EN EL ESTADO: PROCESOS CONECTADOS";
+	public static final String TOP_T_MENUITEM_REPORT10 = "REPORTE POR ORDEN DE EJECUCION EN LA CPU";
+	public static final String TOP_T_MENUITEM_REPORT11 = "REPORTE DEL PROCESO DE CAMBIO DE ESTADOS";
 	public static final int DO_NOTHING_ON_CLOSE = 0;
 	
 	public static final String [] headersEstados = {"Tiempo", "Proceso"};
 	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	
-	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso","Prioridad", "Nueva prioridad", "Bloqueado", "Ejecutar", "Destruir", "Suspender", "Conectar", "Conectado con", "Eliminar" };
+	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado","Prioridad", "Ejecutar", "Destruir", "Suspender", "Conectar", "Eliminar" };
 
 	
 }

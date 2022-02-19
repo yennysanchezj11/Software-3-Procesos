@@ -87,11 +87,39 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 		
+			case C_REPORT_BY_DESTROY_PROCESS:
+			// reporte por orden en el estado en bloqueo
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT6);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT6);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportByDestroyProcess());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+
+			case C_REPORT_BY_LAYOFF_PROCESS:
+			// reporte por orden en el estado en bloqueo
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT7);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT7);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportByLayOffProcess());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+		
+			case C_REPORT_BY_RESUME_PROCESS:
+			// reporte por orden en el estado en bloqueo
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(reportByResumeProcess());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+		
+		
 
 		case C_REPORT_BY_EXECUTE_STATES:
 			// reporte por orden en el estado de en ejecución
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT6);
-			reportTable.assignHeaders(this,Constants.headersR6,Constants.TOP_T_MENUITEM_REPORT6);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT10);
+			reportTable.assignHeaders(this,Constants.headersR6,Constants.TOP_T_MENUITEM_REPORT10);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByCpuExecuteOrder());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -99,8 +127,8 @@ public class ControllerApp implements ActionListener {
 
 		case C_REPORT_FOR_STATUS_CHANGE:
 			// reporte por cambios de estado de cada proceso
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT7);
-			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT7);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT11);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT11);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportForStatusChange());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -114,6 +142,7 @@ public class ControllerApp implements ActionListener {
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
+
 
 	public void addProcessTable(ActionListener actionListener) {
 		jPrincipal.setInformationProcessTable(actionListener);
@@ -129,7 +158,7 @@ public class ControllerApp implements ActionListener {
 			Object[] vector = (Object[]) listProcess.get(i);
 			executeProcess.addProcessToQueue(new Process("" + listProcess.get(i)[0], Integer.parseInt("" + vector[1]),
 					Boolean.parseBoolean("" + vector[2]),Integer.parseInt("" + vector[3]),Boolean.parseBoolean("" + vector[4]),
-					Boolean.parseBoolean("" + vector[5]),Boolean.parseBoolean("" + vector[6]),Boolean.parseBoolean("" + vector[6]),
+					Boolean.parseBoolean("" + vector[5]),Boolean.parseBoolean("" + vector[6]),
 					("" + vector[7])));
 		}
 		executeProcess.init();
@@ -147,6 +176,19 @@ public class ControllerApp implements ActionListener {
 
 	public ArrayList<Object[]> reportStatusChangeProcess() {
 		return executeProcess.reportStatusChangeProcess();
+	}
+
+	private ArrayList<Object[]> reportByDestroyProcess() {
+		return executeProcess.reportDestroyProcess();
+	}
+
+
+	private ArrayList<Object[]> reportByLayOffProcess() {
+		return executeProcess.reportLayOffProcess();
+	}
+
+	private ArrayList<Object[]> reportByResumeProcess() {
+		return executeProcess.reportResumeProcess();
 	}
 
 	public ArrayList<Object[]> reportByCpuExecuteOrder() {

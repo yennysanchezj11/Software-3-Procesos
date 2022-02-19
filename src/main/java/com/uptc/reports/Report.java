@@ -63,7 +63,7 @@ public class Report {
     return aux;
     }
 
-    public ArrayList<Object[]> getReportByDestroyStates() {
+    public ArrayList<Object[]> getReportByDestroyProcess() {
         ArrayList<Object[]> aux= new ArrayList<>();
             registers.get(DESTROY).stream()
                     .sorted(Comparator.comparingInt(Register::getTimeEnd))
@@ -72,7 +72,7 @@ public class Report {
     return aux;
     }
 
-    public ArrayList<Object[]> getReportByLayOffStates() {
+    public ArrayList<Object[]> getReportByLayOffProcess() {
         ArrayList<Object[]> aux= new ArrayList<>();
             registers.get(LAYOFF).stream()
                     .sorted(Comparator.comparingInt(Register::getTimeEnd))
@@ -81,7 +81,7 @@ public class Report {
     return aux;
     }
 
-    public ArrayList<Object[]> getReportByResumeStates() {
+    public ArrayList<Object[]> getReportByResumeProcess() {
         ArrayList<Object[]> aux= new ArrayList<>();
             registers.get(RESUME).stream()
                     .sorted(Comparator.comparingInt(Register::getTimeEnd))

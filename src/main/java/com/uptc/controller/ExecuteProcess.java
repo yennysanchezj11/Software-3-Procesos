@@ -150,9 +150,25 @@ public class ExecuteProcess {
         return report.reportByCpuExecuteOrder();
     }
 
+    public ArrayList<Object[]> reportDestroyProcess() {
+        return report.getReportByDestroyProcess();
+    }
+
+    public ArrayList<Object[]> reportLayOffProcess() {
+        return report.getReportByLayOffProcess();
+    }
+
+    public ArrayList<Object[]> reportResumeProcess() {
+        return report.getReportByResumeProcess();
+    }
+
     public String[] reportHeadersTable() {
         return report.headerTable();
     }
 
+ 
+
+
+ 
    
 }

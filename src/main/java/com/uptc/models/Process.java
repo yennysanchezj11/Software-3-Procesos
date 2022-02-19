@@ -13,7 +13,7 @@ public class Process {
     private final boolean isLocked;
     private final int newPriority;
     private final boolean isExecute;
-    private final boolean isResume;
+   // private final boolean isResume;
 	private final boolean isDestroy;
 	private final boolean isLayoff;
 	private final String connectProcess;
@@ -21,13 +21,12 @@ public class Process {
 
     private final Map<Integer, List<Register>> register;
 
-    public Process(String name, int time, boolean isLocked, int newPriority,boolean isExecute,boolean isResumen,boolean isDestroy, boolean isLayoff, String connectProcess) {
+    public Process(String name, int time, boolean isLocked, int newPriority,boolean isExecute,boolean isDestroy, boolean isLayoff, String connectProcess) {
         this.name = name;
         this.time = time;
         this.isLocked = isLocked;
         this.newPriority= newPriority;
         this.isExecute=isExecute;
-        this.isResume=isResumen;
         this.isDestroy=isDestroy;
         this.isLayoff=isLayoff;
         this.connectProcess=connectProcess;
@@ -76,9 +75,9 @@ public class Process {
 		return isDestroy;
 	}
 
-    public boolean getIsResume() {
+   /* public boolean getIsResume() {
 		return isResume;
-	}
+	}*/
 
 	public boolean getisLayoff() {
 		return isLayoff;

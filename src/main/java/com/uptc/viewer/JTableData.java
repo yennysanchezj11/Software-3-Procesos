@@ -128,14 +128,16 @@ public class JTableData extends JPanel {
 	}
 
 	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
-		Object[] row = new Object[] { datasList[0], datasList[1], datasList[2],datasList[3], datasList[4], datasList[5], datasList[6], datasList[7], datasList[8], datasList[9], datasList[10], createButton(actionListener,String.valueOf(datasList[0])) };
+		Object[] row = new Object[] { datasList[0], datasList[1], datasList[2],datasList[3], datasList[4],
+		datasList[5], datasList[6], datasList[7], datasList[8],
+		createButton(actionListener,String.valueOf(datasList[0]))};
 		dtmElements.addRow(row);
 	}
 
 	public ArrayList<Object[]> getProcessInformation() {
 		ArrayList<Object[]> infoProcess = new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row = new Object[12];
+			Object[] row = new Object[11];
 			row[0] = dtmElements.getValueAt(i, 1);
 			row[1] = dtmElements.getValueAt(i, 2);
 			row[2] = dtmElements.getValueAt(i, 3);
@@ -144,10 +146,6 @@ public class JTableData extends JPanel {
 			row[5] = dtmElements.getValueAt(i, 6);
 			row[6] = dtmElements.getValueAt(i, 7);
 			row[7] = dtmElements.getValueAt(i, 8);
-			row[8] = dtmElements.getValueAt(i, 9);
-			row[9] = dtmElements.getValueAt(i, 10);
-			row[10] = dtmElements.getValueAt(i, 11);
-			row[11] = dtmElements.getValueAt(i, 12);
 			infoProcess.add(row);
 		}
 		return infoProcess;
@@ -178,7 +176,7 @@ public class JTableData extends JPanel {
 				dtmElements.removeRow(i);
 		      }
 			else {
-				Object[] row = new Object[4];
+				Object[] row = new Object[11];
 				row[0] = dtmElements.getValueAt(i, 0);
 				row[1] = dtmElements.getValueAt(i, 1);
 				row[2] = dtmElements.getValueAt(i, 2);
@@ -191,7 +189,6 @@ public class JTableData extends JPanel {
 				row[9] = dtmElements.getValueAt(i, 9);
 				row[10] = dtmElements.getValueAt(i, 10);
 				row[11] = dtmElements.getValueAt(i, 11);
-				row[0] = dtmElements.getValueAt(i, 1);
 
 				listProcess.add(row);
 			  }  

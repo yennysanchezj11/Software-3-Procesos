@@ -84,8 +84,9 @@ public class JFramePrincipal extends JFrame {
 
 	public void setInformationProcessTable(ActionListener actionListener) {
 		headerProcess.incrementId();
-		Object[] data = { headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
-				headerProcess.getBlockedProcess() };
+		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
+				headerProcess.getBlockedProcess(),headerProcess.getPriorityProcess(),headerProcess.getIsRun(),
+			    headerProcess.getIsDestroyed(),headerProcess.getIsSuspended(),headerProcess.getIsConnects()};
 		centerTable.addElementUniqueToTable(data, actionListener);
 	}
 

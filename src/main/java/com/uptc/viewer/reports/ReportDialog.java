@@ -39,15 +39,15 @@ public class ReportDialog extends JDialog {
 		this.setSize(1200, 700);
 		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
 		this.setIconImage(icon);
-		this.setUndecorated(true);
+		//this.setUndecorated(true);
 		this.setTitleFrame(title);
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setLocationRelativeTo(jFramePrincipal);
-		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.addWindowsListenerOption();
+		//this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		//this.addWindowsListenerOption();
 	}
 
-	public void close() {
+	/*public void close() {
 		if (JOptionPane.showConfirmDialog(this, "¿Desea realmente salir del sistema?", "Salir del sistema",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 			System.exit(0);
@@ -60,7 +60,7 @@ public class ReportDialog extends JDialog {
 				close();
 			}
 		});
-	}
+	}*/
 	
 	public void setTitleFrame(String title){
 		this.setTitle(title);
