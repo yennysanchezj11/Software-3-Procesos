@@ -20,7 +20,7 @@ public class Process {
 
     private final Map<Integer, List<Register>> register;
 
-    public Process(String name, int time, boolean isLocked, boolean isSuspendedReady, boolean isSuspendedLocked
+    public Process(String name, int time, boolean isLocked, boolean isSuspendedLocked,boolean isSuspendedReady
     , boolean endEvent) {
         this.name = name;
         this.time = time;

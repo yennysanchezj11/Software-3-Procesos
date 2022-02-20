@@ -29,6 +29,7 @@ public class ExecuteProcess {
 
     public void addProcessToQueue(Process p) {
         this.allProcess.add(p);
+        this.processes.add(p);
         totalTime += p.getTime();
         p.states(0, 0, READY, INIT);
     }
@@ -37,6 +38,7 @@ public class ExecuteProcess {
         this.timeCPU = 5;
         while (!processes.isEmpty()) {
             Process p = processes.poll();
+            System.out.println("ATENDER");
             attendProcessCPU(p);
         }
     }
@@ -50,6 +52,7 @@ public class ExecuteProcess {
             p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
              if (p.isLocked()) {
                 p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
+                System.out.println("BLOQUEADO NORMAL");
                 isSuspendedLocked(p,LOCKED);
             } else {
                 isSuspendedReady(p,EXECUTE);
@@ -72,6 +75,7 @@ public class ExecuteProcess {
 
     private void isSuspendedReady(Process p, States lastState) {
         if(p.getisSuspendedReady() && lastState==READY || lastState==EXECUTE){
+            System.out.println("suspender LISTO");
         p.states(timeProcess, timeProcess, SUSPENDEDREADY, lastState);
           if((p.getTime() > timeCPU)){
             p.states(timeProcess, timeProcess, READY, SUSPENDEDREADY);
@@ -86,7 +90,7 @@ public class ExecuteProcess {
         if(p.getIsSuspendedLocked() && lastState==LOCKED){
             System.out.println("suspender bloqueado");
             p.states(timeProcess, timeProcess, SUSPENDEDLOCKED, lastState);
-            if(p.getEndEvent()){
+            if(p.getEndEvent() && p.getisSuspendedReady()){
                 p.states(timeProcess, timeProcess, SUSPENDEDREADY, SUSPENDEDLOCKED);
             }
             p.states(timeProcess, timeProcess, LOCKED, SUSPENDEDLOCKED);
