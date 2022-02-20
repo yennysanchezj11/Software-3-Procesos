@@ -120,8 +120,8 @@ public class Report {
         processes.forEach(x -> totalRegisters.addAll(x.getAllRegisters()));
         return totalRegisters;
     }
-/*
-    public ArrayList<Object[]> getReportForStatusChange() {
+
+    public ArrayList<Object[]> getReportForSuspendedTransition() {
         ArrayList<Object[]> aux= new ArrayList<>();
         getTotalRegisters().stream().distinct()
                 .sorted((x, y) -> {
@@ -129,7 +129,79 @@ public class Report {
                         return x.getProcess().getName().compareTo(y.getProcess().getName());
                     else
                         return x.getTimeEnd() - y.getTimeEnd();
-                }).forEach(x -> aux.add(printRegister(x))); 
+                }).forEach(x -> aux.add(getReportForSuspendedTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForResumeTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForResumeTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForSendTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForSendTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForTimeTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForTimeExpiredTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForTerminatioOperationTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForTerminationOperation(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForInitTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForInit(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForExitTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForExit(x))); 
         return aux;
     }
 
@@ -141,6 +213,7 @@ public class Report {
         if(state==READY && stateNext==EXECUTE){
             exit[0]="despachar("+(nameProcess)+"): listo -> en_ejecucion";
         }
+        return exit;
     }
 
     private Object[] getReportForTimeExpiredTransition(Register x){
@@ -150,8 +223,10 @@ public class Report {
         Object[] exit=new Object[1];
         if(state==EXECUTE && stateNext==READY){
             exit[0]="tiempo_expirado ("+(nameProcess)+"): en_ejecucion -> listo";
+          }
+          return exit;
         }
-    }
+        
 
     private Object[] getReportForSuspendedTransition(Register x){
         States state = x.getPreviousState();
@@ -168,6 +243,7 @@ public class Report {
         if(state==EXECUTE && stateNext==SUSPENDEDREADY){
             exit[0]="suspender ("+(nameProcess)+"): En ejecución -> suspendido_listo";
         } 
+        return exit;
     }
 
     private Object[] getReportForTerminationOperation(Register x){
@@ -178,6 +254,7 @@ public class Report {
         if(state==SUSPENDEDLOCKED&& stateNext==SUSPENDEDREADY){
             exit[0]="completar ("+(nameProcess)+"): suspendido_bloqueado -> suspendido_listo";
         }
+        return exit;
     }
 
     private Object[] getReportForResumeTransition(Register x){
@@ -191,16 +268,17 @@ public class Report {
         if(state==SUSPENDEDLOCKED && stateNext==LOCKED){
             exit[0]="reanudar ("+(nameProcess)+"): suspendido_bloqueado -> bloqueado";
         } 
+        return exit;
     }
 
     private Object[] getReportForInit(Register x){
         States state = x.getPreviousState();
-        States stateNext = x.getStatus();
         String nameProcess = x.getProcess().getName();
         Object[] exit=new Object[1];
         if(state==INIT){
             exit[0]="insertar ("+(nameProcess)+"):  nuevo -> listo";
         }
+        return exit;
     }
 
     private Object[] getReportForExit(Register x){
@@ -217,7 +295,8 @@ public class Report {
         if(state==SUSPENDEDREADY && stateNext==EXIT){
             exit[0]="finalizar ("+(nameProcess)+"): suspendido_listo -> salida";
         }
-    }*/
+        return exit;
+    } 
     private int getFinal() {
         int aux = totalTime;
         while (aux % timeCPU != 0) aux++;

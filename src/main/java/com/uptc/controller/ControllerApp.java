@@ -44,19 +44,10 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.close();
 			break;
 
-		case C_REPORT_FOR_STATUS_CHANGE_PROCESS:
-			// reporte por cambio de estado de los proceso
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT2);
-			reportTable.assignHeaders(this, getHeadersTable(),Constants.TOP_T_MENUITEM_REPORT2);
-			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportStatusChangeProcess());
-			jPrincipal.reportTableVisibility(true,reportTable);
-			break;
-
 		case C_REPORT_BY_EXIT_STATE:
 			// reporte por orden en el estado en salida
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT3);
-			reportTable.assignHeaders(this,Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT3);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT2);
+			reportTable.assignHeaders(this,Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT2);
 			reportTable.cleanRowsTable();
 			System.out.println("controler"+Constants.headersEstados[0]);
 			reportTable.addElementToTable(reportByExitState());
@@ -65,8 +56,8 @@ public class ControllerApp implements ActionListener {
 
 		case C_REPORT_BY_READY_STATES:
 			// reporte por orden en el estado en listo
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT4);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT4);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT3);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT3);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByReadyStates());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -74,8 +65,8 @@ public class ControllerApp implements ActionListener {
 
 			case C_REPORT_BY_LOCKED_STATES:
 			// reporte por orden en el estado en bloqueo
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT5);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT5);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT4);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT4);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByLockedStates());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -83,8 +74,8 @@ public class ControllerApp implements ActionListener {
 		
 			case C_REPORT_BY_SUSPENDEDLOCKED_PROCESS:
 			// reporte por orden en el estado en bloqueo
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT6);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT6);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT5);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT5);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportBySuspendedLockedProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -92,8 +83,8 @@ public class ControllerApp implements ActionListener {
 
 			case C_REPORT_BY_SUSPENDEDREADY_PROCESS:
 			// reporte por orden en el estado en bloqueo
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT7);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT7);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT6);
+			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT6);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportBySuspendedReadyProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
@@ -102,21 +93,75 @@ public class ControllerApp implements ActionListener {
 
 		case C_REPORT_BY_EXECUTE_STATES:
 			// reporte por orden en el estado de en ejecución
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT10);
-			reportTable.assignHeaders(this,Constants.headersR6,Constants.TOP_T_MENUITEM_REPORT10);
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT7);
+			reportTable.assignHeaders(this,Constants.headersR6,Constants.TOP_T_MENUITEM_REPORT7);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportByCpuExecuteOrder());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-	/*	case C_REPORT_FOR_STATUS_CHANGE:
+		case C_REPORT_FOR_SUSPENDED_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForSuspendedTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 
+		
+		case C_REPORT_FOR_RESUME_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT9);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT9);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForResumeTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 		
+
+		case C_REPORT_FOR_SEND_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT10);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT10);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForSendTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 	
+
+		case C_REPORT_FOR_TIME_EXPIRED_TRANSITION:
 			// reporte por cambios de estado de cada proceso
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT11);
 			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT11);
 			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportForStatusChange());
+			reportTable.addElementToTable(getReportForTimeExpiredTransition());
 			jPrincipal.reportTableVisibility(true,reportTable);
-			break; */
+			break; 	
+
+		case C_REPORT_FOR_TERMINATION_OPERATION_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT12);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT12);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForTerminationOperation());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 
+
+		case C_REPORT_FOR_EXIT_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT13);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT13);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForExitTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break;
+			
+		case C_REPORT_FOR_INIT_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT14);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT14);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForInitTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 	
 
 		case C_CLOSE_DIALOG:
 			reportTable.setVisible(false);
@@ -135,7 +180,6 @@ public class ControllerApp implements ActionListener {
 		deleteProcess(Integer.valueOf(e.getActionCommand()));
 	}
 	}
-
 
 	public void addProcessTable(ActionListener actionListener) {
 		jPrincipal.setInformationProcessTable(actionListener);
@@ -197,10 +241,36 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportByExitState();
 	}
 
-/*	public ArrayList<Object[]> reportForStatusChange() {
-		return executeProcess.reportForStatusChange();
+	public ArrayList<Object[]> getReportForSuspendedTransition() {
+		return executeProcess.getReportForSuspendedTransition();
 	}
-*/
+
+	private ArrayList<Object[]> getReportForResumeTransition() {
+		return executeProcess.getReportForResumeTransition();
+	}
+
+	private ArrayList<Object[]> getReportForSendTransition() {
+		return executeProcess.getReportSendTransition();
+	}
+	
+	private ArrayList<Object[]> getReportForTimeExpiredTransition() {
+		return executeProcess.getReportForTimeExpiredTransition();
+	}
+
+	private ArrayList<Object[]> getReportForTerminationOperation() {
+		return executeProcess.getReportForTerminationOperationTransition();
+	}
+
+	private ArrayList<Object[]> getReportForExitTransition() {
+		return executeProcess.getReportForExitTransition();
+	}
+
+	private ArrayList<Object[]> getReportForInitTransition() {
+		return executeProcess.getReportForInitTransition();
+	}
+
+
+
 	public void deleteProcess(int id) {
 		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con Id: " + id +"?",
 				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){

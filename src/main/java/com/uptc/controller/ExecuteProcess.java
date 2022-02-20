@@ -74,7 +74,7 @@ public class ExecuteProcess {
     }
 
     private void isSuspendedReady(Process p, States lastState) {
-        if(p.getisSuspendedReady() && lastState==READY || lastState==EXECUTE){
+        if(p.getisSuspendedReady() && lastState==READY || lastState==EXECUTE && timeProcess > 0){
             System.out.println("suspender LISTO");
         p.states(timeProcess, timeProcess, SUSPENDEDREADY, lastState);
           if((p.getTime() > timeCPU)){
@@ -147,6 +147,90 @@ public class ExecuteProcess {
 
     public String[] reportHeadersTable() {
         return report.headerTable();
+    }
+
+    public ArrayList<Object[]> getReportForSuspendedTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForSuspendedTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForResumeTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForResumeTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportSendTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForSendTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForTimeExpiredTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForTimeTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForTerminationOperationTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForTerminatioOperationTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForExitTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForExitTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForInitTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForInitTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
     }
    
 }
