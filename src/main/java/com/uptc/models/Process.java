@@ -11,25 +11,24 @@ public class Process {
     private final String name;
     private int time;
     private final boolean isLocked;
-    private final int newPriority;
-    private final boolean isExecute;
-   // private final boolean isResume;
-	private final boolean isDestroy;
-	private final boolean isLayoff;
-	private final String connectProcess;
+    private final boolean isSuspendedReady;
+	private final boolean isSuspendedLocked;
+    private final boolean endEvent;
+
+
 
 
     private final Map<Integer, List<Register>> register;
 
-    public Process(String name, int time, boolean isLocked, int newPriority,boolean isExecute,boolean isDestroy, boolean isLayoff, String connectProcess) {
+    public Process(String name, int time, boolean isLocked, boolean isSuspendedReady, boolean isSuspendedLocked
+    , boolean endEvent) {
         this.name = name;
         this.time = time;
         this.isLocked = isLocked;
-        this.newPriority= newPriority;
-        this.isExecute=isExecute;
-        this.isDestroy=isDestroy;
-        this.isLayoff=isLayoff;
-        this.connectProcess=connectProcess;
+        this.isSuspendedReady= isSuspendedReady;
+        this.isSuspendedLocked=isSuspendedLocked;
+        this.endEvent=endEvent;
+
 
         this.register = new HashMap<>();
     }
@@ -63,28 +62,16 @@ public class Process {
     }
 
     
-	public boolean getIsExecute() {
-		return isExecute;
+	public boolean getisSuspendedReady() {
+		return isSuspendedReady;
 	}
 
-	public int getNewPriority() {
-		return newPriority;
+    public boolean getIsSuspendedLocked() {
+		return isSuspendedLocked;
 	}
 
-	public boolean getIsDestroy() {
-		return isDestroy;
-	}
-
-   /* public boolean getIsResume() {
-		return isResume;
-	}*/
-
-	public boolean getisLayoff() {
-		return isLayoff;
-	}
-
-	public String getConnectProcess() {
-		return connectProcess;
+    public boolean getEndEvent() {
+		return endEvent;
 	}
 
     public Object[] getTableByState(int totalTime, int timeCPU) {
