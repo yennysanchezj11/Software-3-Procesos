@@ -187,6 +187,7 @@ public class JTableData extends JPanel {
 				row[6] = dtmElements.getValueAt(i, 6);
 				row[7] = dtmElements.getValueAt(i, 7);
 				row[8] = dtmElements.getValueAt(i, 8);
+
 			
 				listProcess.add(row);
 			  }  

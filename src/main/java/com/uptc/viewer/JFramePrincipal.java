@@ -112,4 +112,12 @@ public class JFramePrincipal extends JFrame {
 		centerTable.deleteProcess(id,actionListener);
     }
 
+	public void changeStatusJtextfieldPriority(){
+		headerProcess.changeStatusJtextfieldPriority();
+	}
+
+	public void changeStatusJtextfieldConnect(){
+		headerProcess.changeStatusJtextfieldConnect();
+	}
+
 }

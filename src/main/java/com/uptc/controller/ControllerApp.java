@@ -133,6 +133,14 @@ public class ControllerApp implements ActionListener {
 			this.deleteProcess(Integer.valueOf(e.getActionCommand()));
 			break;
 
+		case NEW_PRIORITY:
+			jPrincipal.changeStatusJtextfieldPriority();
+			break;
+
+		case CONNECT_PROCESS:
+			jPrincipal.changeStatusJtextfieldConnect();
+			break;
+
 		default:
 
 			break;

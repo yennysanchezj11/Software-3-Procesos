@@ -16,7 +16,7 @@ public class MenuBarReports extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private JMenu report;
-	private JMenuItem report1, report2, report3, report4, report5, report6, report7,report8, report9, report10, report11;
+	private JMenuItem report2, report3, report4, report5, report6, report7,report8, report9, report10, report11;
 	private JButton executeButton, closeApppButton;
 
 	public MenuBarReports(ActionListener actionListener) {
