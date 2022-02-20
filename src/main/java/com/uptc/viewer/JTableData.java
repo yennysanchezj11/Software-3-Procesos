@@ -58,7 +58,6 @@ public class JTableData extends JPanel {
 		jsTable.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.add(jsTable, BorderLayout.PAGE_END);
 		this.setBorder(null);
-
 	}
 
 	public void defaulModel(){

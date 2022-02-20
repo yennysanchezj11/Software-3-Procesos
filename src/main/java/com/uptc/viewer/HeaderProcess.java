@@ -97,7 +97,7 @@ public class HeaderProcess extends JPanel  {
 		saveButton = new JButton();
 		saveButton.addActionListener(actionListener);
 		saveButton.setActionCommand(Commands.C_ADD_PROCESS.toString());
-		checkProcess.add(Utilities.button(saveButton, new Dimension(100, 30), "AGREGAR"));
+		checkProcess.add(Utilities.button(saveButton, new Dimension(100, 30), "Agregar"));
 		
 		this.add(checkProcess);
 	}
