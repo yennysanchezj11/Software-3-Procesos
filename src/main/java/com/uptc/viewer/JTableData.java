@@ -146,7 +146,6 @@ public class JTableData extends JPanel {
 			row[5] = dtmElements.getValueAt(i, 6);
 			row[6] = dtmElements.getValueAt(i, 7);
 			row[7] = dtmElements.getValueAt(i, 8);
-			
 			infoProcess.add(row);
 		}
 		return infoProcess;
@@ -171,7 +170,8 @@ public class JTableData extends JPanel {
 
 	public void deleteProcess(int id,ActionListener actionListener) {
 		listProcess= new ArrayList<>();
-		for (int i = 0; i < dtmElements.getRowCount(); i++) {
+		int rowInitial=dtmElements.getRowCount();
+		for (int i = 0; i <= rowInitial; i++) {
 			int idProcess=Integer.parseInt(""+dtmElements.getValueAt(i, 0));
 			if(idProcess==id){
 				dtmElements.removeRow(i);

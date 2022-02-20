@@ -147,7 +147,11 @@ public class HeaderProcess extends JPanel  {
     }
 
 	public String getPriorityProcess() {
-		return priorityProcess.getText();
+		if(priorityProcess.getText()!="   "){
+			return priorityProcess.getText();
+		} else {
+			return ""+5;
+		}
 	}
 
 	public boolean getIsRun() {

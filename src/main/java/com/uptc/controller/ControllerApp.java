@@ -34,6 +34,7 @@ public class ControllerApp implements ActionListener {
 			break;
 		case C_EXECUTE_PROCESS:
 			// Ejecutar lista de procesos
+			System.out.println("ENTRO A EJECUTAR");
 			executeProcess();
 			break;
 
