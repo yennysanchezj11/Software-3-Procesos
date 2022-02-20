@@ -87,7 +87,7 @@ public class ReportDialog extends JDialog {
 
 	private Component northPanel(String title) {
 		northPanel = new JPanel();
-		northPanel.setBackground(Constants.COLOR_MENUBAR);
+		northPanel.setBackground(Constants.COLOR_TITTLE_PANEL);
 		northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));	
 		setTitlePanel(title);
 		northPanel.setVisible(true);
@@ -96,7 +96,7 @@ public class ReportDialog extends JDialog {
 
 	private Component southPanel(ActionListener actionListener){
 		southPanel = new JPanel();
-		southPanel.setBackground(Constants.COLOR_MENUBAR);
+		southPanel.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		closeButton = new JButton();
 		closeButton.addActionListener(actionListener);
@@ -109,7 +109,7 @@ public class ReportDialog extends JDialog {
 	public void setTitlePanel(String titleReport){
 		JLabel title = new JLabel();
 		JLabel help = new JLabel();
-		northPanel.add(Utilities.text(title, Constants.FONT_MENUBAR, titleReport, Color.BLACK));
+		northPanel.add(Utilities.text(title, Constants.FONT_TITTLE, titleReport, Color.BLACK));
 		if(titleReport=="TABLA DEL CAMBIO DE ESTADOS DE LOS PROCESOS"){
 			northPanel.add(Utilities.text(help, Constants.FONT_MENUBAR, "DONDE L=LISTOS, E= EJECUCION, B= BLOQUEO, S= SALIDA", Color.BLACK));
 		}

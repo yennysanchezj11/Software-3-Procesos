@@ -115,7 +115,7 @@ public class Utilities {
 		cTextField.setForeground(color);
 		cTextField.setFont(font);
 		cTextField.setText(text);
-		cTextField.setMaximumSize(sizeTextField);
+		cTextField.setPreferredSize(sizeTextField);
 		return cTextField;
 	}
 

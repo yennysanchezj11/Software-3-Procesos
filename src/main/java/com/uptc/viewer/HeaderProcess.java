@@ -67,10 +67,10 @@ public class HeaderProcess extends JPanel  {
 		checkProcess.setBackground(Constants.COLOR_SET_DATA_PANEL);
 
 		nameProcess = new JTextField();
-		dataProcess.add(Utilities.textField(nameProcess, new Font("arial", Font.ITALIC, 15), "		", Color.GRAY, 150, 70));
+		dataProcess.add(Utilities.textField(nameProcess, new Font("arial", Font.ITALIC, 15), "", Color.GRAY, 210, 20));
 		
 		processTime= new JTextField();
-		dataProcess.add(Utilities.textField(processTime, new Font("arial", Font.ITALIC, 15), "		              ", Color.GRAY, 150, 70));
+		dataProcess.add(Utilities.textField(processTime, new Font("arial", Font.ITALIC, 15), "", Color.GRAY, 290, 20));
 	
 		blockedProcess = new JCheckBox();
 		blockedProcess.setText("¿El proceso se bloqueara?");
