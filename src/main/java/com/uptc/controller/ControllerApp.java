@@ -29,6 +29,7 @@ public class ControllerApp implements ActionListener {
 		try{
 		switch (Commands.valueOf(e.getActionCommand())) {
 		case C_ADD_PROCESS:
+		System.out.println("ENTRO A agregar");
 			// agregar proceso a la tabla de procesos
 			addProcessTable(this);
 			break;
@@ -80,32 +81,24 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 		
-			case C_REPORT_BY_DESTROY_PROCESS:
+			case C_REPORT_BY_SUSPENDEDLOCKED_PROCESS:
 			// reporte por orden en el estado en bloqueo
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT6);
 			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT6);
 			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportByDestroyProcess());
+			reportTable.addElementToTable(reportBySuspendedLockedProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-			case C_REPORT_BY_LAYOFF_PROCESS:
+			case C_REPORT_BY_SUSPENDEDREADY_PROCESS:
 			// reporte por orden en el estado en bloqueo
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT7);
 			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT7);
 			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportByLayOffProcess());
+			reportTable.addElementToTable(reportBySuspendedReadyProcess());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
-		
-			case C_REPORT_BY_RESUME_PROCESS:
-			// reporte por orden en el estado en bloqueo
-			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
-			reportTable.assignHeaders(this, Constants.headersEstados,Constants.TOP_T_MENUITEM_REPORT8);
-			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(reportByResumeProcess());
-			jPrincipal.reportTableVisibility(true,reportTable);
-			break;
+	
 
 		case C_REPORT_BY_EXECUTE_STATES:
 			// reporte por orden en el estado de en ejecución
@@ -116,14 +109,14 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-		case C_REPORT_FOR_STATUS_CHANGE:
+	/*	case C_REPORT_FOR_STATUS_CHANGE:
 			// reporte por cambios de estado de cada proceso
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT11);
 			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT11);
 			reportTable.cleanRowsTable();
 			reportTable.addElementToTable(reportForStatusChange());
 			jPrincipal.reportTableVisibility(true,reportTable);
-			break;
+			break; */
 
 		case C_CLOSE_DIALOG:
 			reportTable.setVisible(false);
@@ -132,14 +125,6 @@ public class ControllerApp implements ActionListener {
 		case C_DELETTE_PROCESS: ///////
 			System.out.println("eliminar");
 			this.deleteProcess(Integer.valueOf(e.getActionCommand()));
-			break;
-
-		case NEW_PRIORITY:
-			jPrincipal.changeStatusJtextfieldPriority();
-			break;
-
-		case CONNECT_PROCESS:
-			jPrincipal.changeStatusJtextfieldConnect();
 			break;
 
 		default:
@@ -166,13 +151,12 @@ public class ControllerApp implements ActionListener {
 		for (int i = 0; i < listProcess.size(); i++) {
 			Object[] vector = (Object[]) listProcess.get(i);
 			executeProcess.addProcessToQueue(new Process("" + listProcess.get(i)[0], Integer.parseInt("" + vector[1]),
-					Boolean.parseBoolean("" + vector[2]),Integer.parseInt("" + vector[3]),Boolean.parseBoolean("" + vector[4]),
-					Boolean.parseBoolean("" + vector[5]),Boolean.parseBoolean("" + vector[6]),
-					("" + vector[7])));
+					Boolean.parseBoolean("" + vector[2]),Boolean.parseBoolean("" + vector[3]),
+					Boolean.parseBoolean("" + vector[4]),Boolean.parseBoolean("" + vector[5])));
 		}
 		executeProcess.init();
 		executeProcess.reports();
-	//	JOptionPane.showMessageDialog(null, "Ejecucion realizada correctamente");
+		JOptionPane.showMessageDialog(null, "Ejecucion realizada correctamente");
 	}
 
 
@@ -188,17 +172,13 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportStatusChangeProcess();
 	}
 
-	private ArrayList<Object[]> reportByDestroyProcess() {
-		return executeProcess.reportDestroyProcess();
+	private ArrayList<Object[]> reportBySuspendedReadyProcess() {
+		return executeProcess.reportSuspendedReadyProcess();
 	}
 
 
-	private ArrayList<Object[]> reportByLayOffProcess() {
-		return executeProcess.reportLayOffProcess();
-	}
-
-	private ArrayList<Object[]> reportByResumeProcess() {
-		return executeProcess.reportResumeProcess();
+	private ArrayList<Object[]> reportBySuspendedLockedProcess() {
+		return executeProcess.reportSuspendedLockedProcess();
 	}
 
 	public ArrayList<Object[]> reportByCpuExecuteOrder() {
@@ -217,10 +197,10 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportByExitState();
 	}
 
-	public ArrayList<Object[]> reportForStatusChange() {
+/*	public ArrayList<Object[]> reportForStatusChange() {
 		return executeProcess.reportForStatusChange();
 	}
-
+*/
 	public void deleteProcess(int id) {
 		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con Id: " + id +"?",
 				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){

@@ -85,12 +85,15 @@ public class JFramePrincipal extends JFrame {
 	public void setInformationProcessTable(ActionListener actionListener) {
 		if(checkName(getInformation())){
 		headerProcess.incrementId();
+		System.out.println(""+headerProcess.getId()+""+headerProcess.getNameProcess()+""+ headerProcess.getProcessTime()+""+
+	    headerProcess.getBlockedProcess()+""+headerProcess.getSuspendedLocked()+""+
+		headerProcess.getSuspendedReady()+""+headerProcess.getEndEvent());
 		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
-				headerProcess.getBlockedProcess(),headerProcess.getEndEvent(),headerProcess.getSuspendedLocked(),
-			    headerProcess.getSuspendedReady()};
+				headerProcess.getBlockedProcess(),headerProcess.getSuspendedLocked(),
+			    headerProcess.getSuspendedReady(),headerProcess.getEndEvent()};
 		centerTable.addElementUniqueToTable(data, actionListener);
 		} else {
-			//JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
+			JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
 		}
 	}
 

@@ -80,17 +80,17 @@ public class HeaderProcess extends JPanel  {
 		this.add(dataProcess);
 
 		isSuspendedLocked = new JCheckBox();
-		isSuspendedLocked.setText("");
+		isSuspendedLocked.setText("El proceso pasa a Suspendido_Bloqueado");
 		isSuspendedLocked.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		checkProcess.add(Utilities.checkBox(isSuspendedLocked, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 
 		isSuspendedReady = new JCheckBox();
-		isSuspendedReady.setText("");
+		isSuspendedReady.setText("El proceso pasa a Suspendido_Listo");
 		isSuspendedReady.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		checkProcess.add(Utilities.checkBox(isSuspendedReady, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 
 		isEndEvent = new JCheckBox();
-		isEndEvent.setText("");
+		isEndEvent.setText("Evento de espera finaliza");
 		isEndEvent.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		checkProcess.add(Utilities.checkBox(isEndEvent, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 

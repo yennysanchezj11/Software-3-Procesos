@@ -64,7 +64,7 @@ public class JTableData extends JPanel {
 	public void defaulModel(){
 		dtmElements.setColumnIdentifiers(headers);
 		jtElements.setModel(dtmElements);
-		jtElements.getColumn(Constants.PRICIPAL_HEADERS[9]).setCellEditor(new TableCellEditor() {
+		jtElements.getColumn(Constants.PRICIPAL_HEADERS[7]).setCellEditor(new TableCellEditor() {
 			
 			@Override
 			public boolean stopCellEditing() {
@@ -129,7 +129,7 @@ public class JTableData extends JPanel {
 
 	public void addElementUniqueToTable(Object[] datasList, ActionListener actionListener) {
 		Object[] row = new Object[] { datasList[0], datasList[1], datasList[2],datasList[3], datasList[4],
-		datasList[5], datasList[6], datasList[7], datasList[8],
+		datasList[5], datasList[6],
 		createButton(actionListener,String.valueOf(datasList[0]))};
 		dtmElements.addRow(row);
 	}
@@ -137,15 +137,13 @@ public class JTableData extends JPanel {
 	public ArrayList<Object[]> getProcessInformation() {
 		ArrayList<Object[]> infoProcess = new ArrayList<>();
 		for (int i = 0; i < dtmElements.getRowCount(); i++) {
-			Object[] row = new Object[8];
+			Object[] row = new Object[6];
 			row[0] = dtmElements.getValueAt(i, 1);
 			row[1] = dtmElements.getValueAt(i, 2);
 			row[2] = dtmElements.getValueAt(i, 3);
 			row[3] = dtmElements.getValueAt(i, 4);
 			row[4] = dtmElements.getValueAt(i, 5);
 			row[5] = dtmElements.getValueAt(i, 6);
-			row[6] = dtmElements.getValueAt(i, 7);
-			row[7] = dtmElements.getValueAt(i, 8);
 			infoProcess.add(row);
 		}
 		return infoProcess;
@@ -177,7 +175,7 @@ public class JTableData extends JPanel {
 				dtmElements.removeRow(i);
 		      }
 			else {
-				Object[] row = new Object[9];
+				Object[] row = new Object[8];
 				row[0] = dtmElements.getValueAt(i, 0);
 				row[1] = dtmElements.getValueAt(i, 1);
 				row[2] = dtmElements.getValueAt(i, 2);
@@ -186,9 +184,6 @@ public class JTableData extends JPanel {
 				row[5] = dtmElements.getValueAt(i, 5);
 				row[6] = dtmElements.getValueAt(i, 6);
 				row[7] = dtmElements.getValueAt(i, 7);
-				row[8] = dtmElements.getValueAt(i, 8);
-
-			
 				listProcess.add(row);
 			  }  
 	        }

@@ -69,31 +69,24 @@ public class MenuBarReports extends JMenuBar {
 		report6 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT6);
 		report6.setFont(Constants.FONT_MENUBAR);
 		report6.addActionListener(actionListener);
-		report6.setActionCommand(Commands.C_REPORT_BY_DESTROY_PROCESS.toString());
+		report6.setActionCommand(Commands.C_REPORT_BY_SUSPENDEDLOCKED_PROCESS.toString());
 		report.add(report6);
 		report.addSeparator();
 
 		report7 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT7);
 		report7.setFont(Constants.FONT_MENUBAR);
 		report7.addActionListener(actionListener);
-		report7.setActionCommand(Commands.C_REPORT_BY_LAYOFF_PROCESS.toString());
+		report7.setActionCommand(Commands.C_REPORT_BY_SUSPENDEDREADY_PROCESS.toString());
 		report.add(report7);
 		report.addSeparator();
 
-		report8 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT8);
-		report8.setFont(Constants.FONT_MENUBAR);
-		report8.addActionListener(actionListener);
-		report8.setActionCommand(Commands.C_REPORT_BY_RESUME_PROCESS.toString());
-		report.add(report8);
-		report.addSeparator();
-
-		report9 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT9);
+	/*	report9 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT9);
 		report9.setFont(Constants.FONT_MENUBAR);
 		report9.addActionListener(actionListener);
 		report9.setActionCommand(Commands.C_REPORT_BY_CONNECT_PROCESS.toString());
 		report.add(report9);
 		report.addSeparator();
-
+   */
 
 		report10 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT10);
 		report10.setFont(Constants.FONT_MENUBAR);

@@ -84,6 +84,7 @@ public class ExecuteProcess {
 
     private void isSuspendedLocked(Process p, States lastState) {
         if(p.getIsSuspendedLocked() && lastState==LOCKED){
+            System.out.println("suspender bloqueado");
             p.states(timeProcess, timeProcess, SUSPENDEDLOCKED, lastState);
             if(p.getEndEvent()){
                 p.states(timeProcess, timeProcess, SUSPENDEDREADY, SUSPENDEDLOCKED);
@@ -123,33 +124,25 @@ public class ExecuteProcess {
         return report.getReportByLockedStates();
     }
 
-    public ArrayList<Object[]> reportForStatusChange(){
+   /* public ArrayList<Object[]> reportForStatusChange(){
         return report.getReportForStatusChange();
     }
 
+*/
     public ArrayList<Object[]> reportByCpuExecuteOrder() {
         return report.reportByCpuExecuteOrder();
     }
 
-    public ArrayList<Object[]> reportDestroyProcess() {
-        return report.getReportByDestroyProcess();
+    public ArrayList<Object[]> reportSuspendedReadyProcess() {
+        return report.getReportBySuspendedReadyState();
     }
 
-    public ArrayList<Object[]> reportLayOffProcess() {
-        return report.getReportByLayOffProcess();
-    }
-
-    public ArrayList<Object[]> reportResumeProcess() {
-        return report.getReportByResumeProcess();
+    public ArrayList<Object[]> reportSuspendedLockedProcess() {
+        return report.getReportBySuspendedLockedState();
     }
 
     public String[] reportHeadersTable() {
         return report.headerTable();
     }
-
- 
-
-
- 
    
 }
