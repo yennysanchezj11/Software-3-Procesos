@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -15,18 +14,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.uptc.controller.Commands;
-import com.uptc.controller.ControllerApp;
-import java.awt.*;
+
 
 public class HeaderProcess extends JPanel  {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTextField processTime, nameProcess, priorityProcess, nameProcessConection;
-	private JLabel tittle, lProcessTime, lNameProcess, lPriorityProcess;
+	private JTextField processTime, nameProcess;
+	private JLabel tittle, lProcessTime, lNameProcess;
 	private JPanel tittlePanel, dataProcess, checkProcess, labelsData; 
 	private JButton saveButton;
-	private JCheckBox blockedProcess, isRun, isDestroyed, isSuspended, newPriority, isConnect;
+	private JCheckBox blockedProcess, isSuspendedLocked, isSuspendedReady, isEndEvent;
 	private int numProcess;
 	private ActionListener actionListener;
 
@@ -60,8 +58,6 @@ public class HeaderProcess extends JPanel  {
 		lProcessTime = new JLabel();
 		labelsData.add(Utilities.text(lProcessTime, new Font("arial", Font.ITALIC, 15), "Ingresa el tiempo que el proceso requiere", Color.BLACK));
 
-		lPriorityProcess = new JLabel();
-		labelsData.add(Utilities.text(lPriorityProcess, new Font("arial", Font.ITALIC, 15), "Ingresa la prioridad del proceso", Color.BLACK));
 		this.add(labelsData);
 		
 		dataProcess.setLayout(new FlowLayout(FlowLayout.LEFT, 10,5));
@@ -75,19 +71,7 @@ public class HeaderProcess extends JPanel  {
 		
 		processTime= new JTextField();
 		dataProcess.add(Utilities.textField(processTime, new Font("arial", Font.ITALIC, 15), "		              ", Color.GRAY, 150, 70));
-		
-		newPriority = new JCheckBox();
-		newPriority.addActionListener(actionListener);
-		newPriority.setActionCommand(Commands.NEW_PRIORITY.toString());
-		newPriority.setText("Agregar una nueva prioridad");
-		dataProcess.add((Utilities.checkBox(newPriority, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false)));
-
-		
-		
-		priorityProcess = new JTextField();
-		this.changeStatusJtextfieldPriority();
-		dataProcess.add(Utilities.textField(priorityProcess, new Font("arial", Font.ITALIC, 15), "		", Color.GRAY, 150, 70));
-		
+	
 		blockedProcess = new JCheckBox();
 		blockedProcess.setText("¿El proceso se bloqueara?");
 		blockedProcess.setBackground(Constants.COLOR_SET_DATA_PANEL);
@@ -95,28 +79,20 @@ public class HeaderProcess extends JPanel  {
 	
 		this.add(dataProcess);
 
-		isRun = new JCheckBox();
-		isRun.setText("¿El proceso se ejecuta?");
-		checkProcess.add(Utilities.checkBox(isRun, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
-		
-		isDestroyed = new JCheckBox();
-		isDestroyed.setText("¿El proceso se destruye?");
-		checkProcess.add(Utilities.checkBox(isDestroyed, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
-		
-		isSuspended= new JCheckBox();
-		isSuspended.setText("¿El proceso se suspende?");
-		checkProcess.add(Utilities.checkBox(isSuspended, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
-		
-		isConnect = new JCheckBox();
-		isConnect.setText("¿El proceso se conecta?");
-		isConnect.addActionListener(actionListener);
-		isConnect.setActionCommand(Commands.CONNECT_PROCESS.toString());
-		checkProcess.add(Utilities.checkBox(isConnect, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
+		isSuspendedLocked = new JCheckBox();
+		isSuspendedLocked.setText("");
+		isSuspendedLocked.setBackground(Constants.COLOR_SET_DATA_PANEL);
+		checkProcess.add(Utilities.checkBox(isSuspendedLocked, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 
-		nameProcessConection = new JTextField();
-		this.changeStatusJtextfieldConnect();
-		checkProcess.add(Utilities.textField(nameProcessConection, new Font("arial", Font.ITALIC, 15), "		", Color.GRAY, 150, 70));
-		
+		isSuspendedReady = new JCheckBox();
+		isSuspendedReady.setText("");
+		isSuspendedReady.setBackground(Constants.COLOR_SET_DATA_PANEL);
+		checkProcess.add(Utilities.checkBox(isSuspendedReady, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
+
+		isEndEvent = new JCheckBox();
+		isEndEvent.setText("");
+		isEndEvent.setBackground(Constants.COLOR_SET_DATA_PANEL);
+		checkProcess.add(Utilities.checkBox(isEndEvent, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 
 		saveButton = new JButton();
 		saveButton.addActionListener(actionListener);
@@ -142,61 +118,20 @@ public class HeaderProcess extends JPanel  {
         return numProcess;
     }
 
+	public boolean getEndEvent() {
+        return isEndEvent.isSelected();
+    }
+
+	public boolean getSuspendedLocked() {
+        return isSuspendedLocked.isSelected();
+    }
+
+	public boolean getSuspendedReady() {
+        return isSuspendedReady.isSelected();
+    }
+
 	public int incrementId() {
         return numProcess++;
     }
-
-	public String getPriorityProcess() {
-		if(priorityProcess.getText()!="   "){
-			return priorityProcess.getText();
-		} else {
-			return ""+5;
-		}
-	}
-
-	public boolean getIsRun() {
-		return isRun.isSelected();
-	}
-
-	public boolean getIsDestroyed() {
-		return isDestroyed.isSelected();
-	}
-
-	public boolean getIsSuspended() {
-		return isSuspended.isSelected();
-	}
-
-	public String getIsConnects() {
-	String connect="No";
-		if(nameProcessConection.getText()!="") {
-			connect=nameProcessConection.getText();
-		}
-		return connect;
-	}
-
-
-	public void changeStatusJtextfieldPriority(){
-		boolean isEditable = false;
-		if(newPriority.isSelected()){
-			isEditable = true;
-			priorityProcess.setEditable(true);	
-		}
-		else{
-			priorityProcess.setEditable(false);
-			isEditable=false;
-		}
-	}
-
-	public void changeStatusJtextfieldConnect(){
-		boolean isEditable = false;
-		if(isConnect.isSelected()){
-			isEditable = true;
-			nameProcessConection.setEditable(true);	
-		}
-		else{
-			nameProcessConection.setEditable(false);
-			isEditable=false;
-		}
-	}
 
 }

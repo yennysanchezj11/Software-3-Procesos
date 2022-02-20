@@ -86,8 +86,8 @@ public class JFramePrincipal extends JFrame {
 		if(checkName(getInformation())){
 		headerProcess.incrementId();
 		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
-				headerProcess.getBlockedProcess(),headerProcess.getPriorityProcess(),headerProcess.getIsRun(),
-			    headerProcess.getIsDestroyed(),headerProcess.getIsSuspended(),headerProcess.getIsConnects()};
+				headerProcess.getBlockedProcess(),headerProcess.getEndEvent(),headerProcess.getSuspendedLocked(),
+			    headerProcess.getSuspendedReady()};
 		centerTable.addElementUniqueToTable(data, actionListener);
 		} else {
 			//JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
@@ -111,13 +111,4 @@ public class JFramePrincipal extends JFrame {
     public void deleteProcess(int id,ActionListener actionListener) {
 		centerTable.deleteProcess(id,actionListener);
     }
-
-	public void changeStatusJtextfieldPriority(){
-		headerProcess.changeStatusJtextfieldPriority();
-	}
-
-	public void changeStatusJtextfieldConnect(){
-		headerProcess.changeStatusJtextfieldConnect();
-	}
-
 }
