@@ -13,7 +13,6 @@ public class Process {
     private final boolean isLocked;
     private final boolean isSuspendedReady;
 	private final boolean isSuspendedLocked;
-    private final boolean endEvent;
 
 
 
@@ -21,13 +20,13 @@ public class Process {
     private final Map<Integer, List<Register>> register;
 
     public Process(String name, int time, boolean isLocked, boolean isSuspendedLocked,boolean isSuspendedReady
-    , boolean endEvent) {
+    ) {
         this.name = name;
         this.time = time;
         this.isLocked = isLocked;
         this.isSuspendedReady= isSuspendedReady;
         this.isSuspendedLocked=isSuspendedLocked;
-        this.endEvent=endEvent;
+
 
 
         this.register = new HashMap<>();
@@ -68,10 +67,6 @@ public class Process {
 
     public boolean getIsSuspendedLocked() {
 		return isSuspendedLocked;
-	}
-
-    public boolean getEndEvent() {
-		return endEvent;
 	}
 
     public Object[] getTableByState(int totalTime, int timeCPU) {

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import com.uptc.models.Process;
 import com.uptc.reports.Report;
 import com.uptc.viewer.Constants;
+import com.uptc.viewer.HeaderProcess;
 import com.uptc.viewer.JFramePrincipal;
 import com.uptc.viewer.reports.ReportDialog;
 
@@ -32,6 +33,7 @@ public class ControllerApp implements ActionListener {
 		System.out.println("ENTRO A agregar");
 			// agregar proceso a la tabla de procesos
 			addProcessTable(this);
+			jPrincipal.cleanFieldsTable();
 			break;
 		case C_EXECUTE_PROCESS:
 			// Ejecutar lista de procesos
@@ -100,12 +102,30 @@ public class ControllerApp implements ActionListener {
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break;
 
-		case C_REPORT_FOR_SUSPENDED_TRANSITION:
+		case C_REPORT_FOR_READY_SUSPENDED_READY_TRANSITION:
 			// reporte por cambios de estado de cada proceso
 			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
 			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT8);
 			reportTable.cleanRowsTable();
-			reportTable.addElementToTable(getReportForSuspendedTransition());
+			reportTable.addElementToTable(getReportForReadySuspendedReadyTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 
+
+		case C_REPORT_FOR_EXECUTE_SUSPENDED_READY_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForExecuteSuspendedReadyTransition());
+			jPrincipal.reportTableVisibility(true,reportTable);
+			break; 
+
+		case C_REPORT_FOR_LOCKED_SUSPENDED_LOCKED_TRANSITION:
+			// reporte por cambios de estado de cada proceso
+			reportTable= new ReportDialog(jPrincipal,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.assignHeaders(this,Constants.headersR7,Constants.TOP_T_MENUITEM_REPORT8);
+			reportTable.cleanRowsTable();
+			reportTable.addElementToTable(getReportForLockedSuspendedLockedTransition());
 			jPrincipal.reportTableVisibility(true,reportTable);
 			break; 
 		
@@ -181,6 +201,8 @@ public class ControllerApp implements ActionListener {
 	}
 	}
 
+
+
 	public void addProcessTable(ActionListener actionListener) {
 		jPrincipal.setInformationProcessTable(actionListener);
 	}
@@ -196,7 +218,7 @@ public class ControllerApp implements ActionListener {
 			Object[] vector = (Object[]) listProcess.get(i);
 			executeProcess.addProcessToQueue(new Process("" + vector[0], Integer.parseInt("" + vector[1]),
 					Boolean.parseBoolean("" + vector[2]),Boolean.parseBoolean("" + vector[3]),
-					Boolean.parseBoolean("" + vector[4]),Boolean.parseBoolean("" + vector[5])));
+					Boolean.parseBoolean("" + vector[4])));
 		}
 		executeProcess.init();
 		executeProcess.reports();
@@ -241,10 +263,10 @@ public class ControllerApp implements ActionListener {
 		return executeProcess.reportByExitState();
 	}
 
-	public ArrayList<Object[]> getReportForSuspendedTransition() {
-		return executeProcess.getReportForSuspendedTransition();
+	
+	private ArrayList<Object[]> getReportForReadySuspendedReadyTransition() {
+		return executeProcess.getReportForReadySuspendedReadyTransition();
 	}
-
 	private ArrayList<Object[]> getReportForResumeTransition() {
 		return executeProcess.getReportForResumeTransition();
 	}
@@ -270,6 +292,13 @@ public class ControllerApp implements ActionListener {
 	}
 
 
+	private ArrayList<Object[]> getReportForExecuteSuspendedReadyTransition() {
+		return executeProcess.getReportForExecuteSuspendedReadyTransition();
+	}
+
+	private ArrayList<Object[]> getReportForLockedSuspendedLockedTransition() {
+		return executeProcess.getReportForLockeddSuspendedLockedTransition();
+	}
 
 	public void deleteProcess(int id) {
 		if(JOptionPane.showConfirmDialog(jPrincipal, "¿Seguro que desea borrar el proceso con Id: " + id +"?",

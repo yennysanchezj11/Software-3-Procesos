@@ -24,7 +24,7 @@ public class HeaderProcess extends JPanel  {
 	private JLabel tittle, lProcessTime, lNameProcess;
 	private JPanel tittlePanel, dataProcess, checkProcess, labelsData; 
 	private JButton saveButton;
-	private JCheckBox blockedProcess, isSuspendedLocked, isSuspendedReady, isEndEvent;
+	private JCheckBox blockedProcess, isSuspendedLocked, isSuspendedReady;
 	private int numProcess;
 	private ActionListener actionListener;
 
@@ -89,11 +89,11 @@ public class HeaderProcess extends JPanel  {
 		isSuspendedReady.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		checkProcess.add(Utilities.checkBox(isSuspendedReady, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
 
-		isEndEvent = new JCheckBox();
+		/*isEndEvent = new JCheckBox();
 		isEndEvent.setText("Evento de espera finaliza");
 		isEndEvent.setBackground(Constants.COLOR_SET_DATA_PANEL);
 		checkProcess.add(Utilities.checkBox(isEndEvent, new Font("arial", Font.ITALIC, 15), Color.BLACK, Constants.COLOR_SET_DATA_PANEL, false));
-
+*/
 		saveButton = new JButton();
 		saveButton.addActionListener(actionListener);
 		saveButton.setActionCommand(Commands.C_ADD_PROCESS.toString());
@@ -118,9 +118,6 @@ public class HeaderProcess extends JPanel  {
         return numProcess;
     }
 
-	public boolean getEndEvent() {
-        return isEndEvent.isSelected();
-    }
 
 	public boolean getSuspendedLocked() {
         return isSuspendedLocked.isSelected();
@@ -133,5 +130,11 @@ public class HeaderProcess extends JPanel  {
 	public int incrementId() {
         return numProcess++;
     }
-
+    public void cleanFields(){
+		processTime.setText("");
+		nameProcess.setText("");
+		blockedProcess.setSelected(false);
+		isSuspendedLocked.setSelected(false);
+		isSuspendedReady.setSelected(false);
+	}
 }

@@ -3,6 +3,8 @@ package com.uptc.viewer;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.Icon;
+
 public class Constants {
 
 	public static final Color DATA_PANEL_HEADERS_TABLE_COLOR = Color.decode("#f6f6f6");;
@@ -22,7 +24,7 @@ public class Constants {
 	public static final String TOP_T_MENUITEM_REPORT5 = "REPORTE POR ORDEN EN EL ESTADO: SUSPENDIDO BLOQUEADO";
 	public static final String TOP_T_MENUITEM_REPORT6 = "REPORTE POR ORDEN EN EL ESTADO: SUSPENDIDO LISTO";
 	public static final String TOP_T_MENUITEM_REPORT7 = "REPORTE POR ORDEN DE EJECUCION EN LA CPU";
-	public static final String TOP_T_MENUITEM_REPORT8 = "REPORTE DE LA TRANSICIÓN DE SUSPENDER";
+	public static final String TOP_T_MENUITEM_REPORT8 = "REPORTE DE LA TRANSICIÓN DE LISTO A SUSPENDIDO_LISTO";
 	public static final String TOP_T_MENUITEM_REPORT9 = "REPORTE DE LA TRANSICIÓN DE REANUDAR";
 	public static final String TOP_T_MENUITEM_REPORT10 = "REPORTE DE LA TRANSICIÓN DESPACHAR";
 	public static final String TOP_T_MENUITEM_REPORT11 = "REPORTE DE LA TRANSICIÓN TIEMPO EXPIRADO";
@@ -35,7 +37,9 @@ public class Constants {
 	public static final String [] headersR6 = {"Tiempo Inicial","Tiempo Final", "Proceso"};
 	public static final String [] headersR7 = {"Transacciones entre estados"};
 	
-	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado","Suspendido Bloqueado","Suspendido Listo","Finaliza evento","Eliminar" };
+	public static final String [] PRICIPAL_HEADERS = { "Id", "Nombre del proceso", "Tiempo del proceso", "Bloqueado","Suspendido Bloqueado","Suspendido Listo","Eliminar" };
+    public static final String TOP_T_MENUITEM_REPORT15 = "REPORTE DE LA TRANSICIÓN DE EJECUTADO  A SUSPENDIDO_LISTO";
+    public static final String TOP_T_MENUITEM_REPORT16 = "REPORTE DE LA TRANSICIÓN DE BLOQUEADO  A SUSPENDIDO_BLOQUEADO";
 
 	
 }

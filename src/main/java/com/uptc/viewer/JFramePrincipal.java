@@ -29,7 +29,7 @@ public class JFramePrincipal extends JFrame {
 
 	public JFramePrincipal(ActionListener actionListener, String [] headers) {
 		super(Constants.TITTLE_APP);
-		this.setSize(1300, 600);
+		this.setSize(1600, 860);
 		Image icon = new ImageIcon(Constants.LOGO_APP).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
 		this.setIconImage(icon);
 		this.setUndecorated(true);
@@ -87,10 +87,10 @@ public class JFramePrincipal extends JFrame {
 		headerProcess.incrementId();
 		System.out.println(""+headerProcess.getId()+""+headerProcess.getNameProcess()+""+ headerProcess.getProcessTime()+""+
 	    headerProcess.getBlockedProcess()+""+headerProcess.getSuspendedLocked()+""+
-		headerProcess.getSuspendedReady()+""+headerProcess.getEndEvent());
+		headerProcess.getSuspendedReady());
 		Object[] data ={headerProcess.getId(),headerProcess.getNameProcess(), headerProcess.getProcessTime(),
 				headerProcess.getBlockedProcess(),headerProcess.getSuspendedLocked(),
-			    headerProcess.getSuspendedReady(),headerProcess.getEndEvent()};
+			    headerProcess.getSuspendedReady()};
 		centerTable.addElementUniqueToTable(data, actionListener);
 		} else {
 			JOptionPane.showMessageDialog(this, "Nombre de proceso ya existente");
@@ -114,4 +114,8 @@ public class JFramePrincipal extends JFrame {
     public void deleteProcess(int id,ActionListener actionListener) {
 		centerTable.deleteProcess(id,actionListener);
     }
+
+	public void cleanFieldsTable() {
+		headerProcess.cleanFields();
+	}
 }

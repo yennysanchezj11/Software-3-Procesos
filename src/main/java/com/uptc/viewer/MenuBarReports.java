@@ -17,7 +17,7 @@ public class MenuBarReports extends JMenuBar {
 
 	private JMenu report;
 	private JMenuItem report2, report3, report4, report5, report6, report7,
-	report8, report9, report10, report11,report12,report13,report14,report15,report16;
+	report8, report9, report10, report11,report12,report13,report14,report15,report16,report17,report18;
 	private JButton executeButton, closeApppButton;
 
 	public MenuBarReports(ActionListener actionListener) {
@@ -84,10 +84,24 @@ public class MenuBarReports extends JMenuBar {
 		report9 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT8);
 		report9.setFont(Constants.FONT_MENUBAR);
 		report9.addActionListener(actionListener);
-		report9.setActionCommand(Commands.C_REPORT_FOR_SUSPENDED_TRANSITION.toString());
+		report9.setActionCommand(Commands.C_REPORT_FOR_READY_SUSPENDED_READY_TRANSITION.toString());
 		report.add(report9);
 		report.addSeparator();
    
+		report17 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT15);
+		report17.setFont(Constants.FONT_MENUBAR);
+		report17.addActionListener(actionListener);
+		report17.setActionCommand(Commands.C_REPORT_FOR_EXECUTE_SUSPENDED_READY_TRANSITION.toString());
+		report.add(report17);
+		report.addSeparator();
+
+		   
+		report18 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT16);
+		report18.setFont(Constants.FONT_MENUBAR);
+		report18.addActionListener(actionListener);
+		report18.setActionCommand(Commands.C_REPORT_FOR_LOCKED_SUSPENDED_LOCKED_TRANSITION.toString());
+		report.add(report18);
+		report.addSeparator();
 
 		report10 = new JMenuItem(Constants.TOP_T_MENUITEM_REPORT9);
 		report10.setFont(Constants.FONT_MENUBAR);

@@ -121,7 +121,7 @@ public class Report {
         return totalRegisters;
     }
 
-    public ArrayList<Object[]> getReportForSuspendedTransition() {
+    public ArrayList<Object[]> getReportForReadySuspendedReadyTransition() {
         ArrayList<Object[]> aux= new ArrayList<>();
         getTotalRegisters().stream().distinct()
                 .sorted((x, y) -> {
@@ -129,7 +129,31 @@ public class Report {
                         return x.getProcess().getName().compareTo(y.getProcess().getName());
                     else
                         return x.getTimeEnd() - y.getTimeEnd();
-                }).forEach(x -> aux.add(getReportForSuspendedTransition(x))); 
+                }).forEach(x -> aux.add(getReportForReadySuspendedReadyTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForExecuteSuspendedReadyTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForExecuteSuspendedReadyTransition(x))); 
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForLockedSuspendedLockedTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        getTotalRegisters().stream().distinct()
+                .sorted((x, y) -> {
+                    if (x.getTimeEnd() == y.getTimeEnd())
+                        return x.getProcess().getName().compareTo(y.getProcess().getName());
+                    else
+                        return x.getTimeEnd() - y.getTimeEnd();
+                }).forEach(x -> aux.add(getReportForLockedSuspendedLockedTransition(x))); 
         return aux;
     }
 
@@ -228,24 +252,38 @@ public class Report {
         }
         
 
-    private Object[] getReportForSuspendedTransition(Register x){
+    private Object[] getReportForExecuteSuspendedReadyTransition(Register x){
         States state = x.getPreviousState();
         States stateNext = x.getStatus();
         String nameProcess = x.getProcess().getName();
         Object[] exit=new Object[1];
-        if(state==READY && stateNext==SUSPENDEDREADY){
-            exit[0]="suspender ("+(nameProcess)+"): listo -> suspendido_listo";
-        } else 
-        if(state==LOCKED && stateNext==SUSPENDEDLOCKED){
-            exit[0]="suspender ("+(nameProcess)+"): bloqueado -> suspendido_bloqueado";
-        } 
-        else 
         if(state==EXECUTE && stateNext==SUSPENDEDREADY){
             exit[0]="suspender ("+(nameProcess)+"): En ejecución -> suspendido_listo";
         } 
         return exit;
     }
 
+    private Object[] getReportForReadySuspendedReadyTransition(Register x){
+        States state = x.getPreviousState();
+        States stateNext = x.getStatus();
+        String nameProcess = x.getProcess().getName();
+        Object[] exit=new Object[1];
+        if(state==READY && stateNext==SUSPENDEDREADY){
+            exit[0]="suspender ("+(nameProcess)+"): listo -> suspendido_listo";
+        }
+        return exit;
+    }
+
+    private Object[] getReportForLockedSuspendedLockedTransition(Register x){
+        States state = x.getPreviousState();
+        States stateNext = x.getStatus();
+        String nameProcess = x.getProcess().getName();
+        Object[] exit=new Object[1];
+        if(state==LOCKED && stateNext==SUSPENDEDLOCKED){
+            exit[0]="suspender ("+(nameProcess)+"): bloqueado -> suspendido_bloqueado";
+        }
+        return exit;
+    }
     private Object[] getReportForTerminationOperation(Register x){
         States state = x.getPreviousState();
         States stateNext = x.getStatus();

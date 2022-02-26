@@ -49,7 +49,6 @@ public class ExecuteProcess {
         if (p.getTime() > timeCPU) { // 500 - 100
             p.setTime(timeCPU);
             isSuspendedReady(p,READY);
-            p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
              if (p.isLocked()) {
                 p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
                 System.out.println("BLOQUEADO NORMAL");
@@ -62,7 +61,6 @@ public class ExecuteProcess {
             int timePi = p.getTime();
             p.setTime(timePi);
             isSuspendedReady(p,READY);
-            p.states(timeProcess, timeProcess += timePi, EXECUTE, READY);
             if (p.isLocked()) {
                 p.states(timeProcess, timeProcess, LOCKED, EXECUTE);
                 isSuspendedLocked(p, LOCKED);
@@ -74,7 +72,7 @@ public class ExecuteProcess {
     }
 
     private void isSuspendedReady(Process p, States lastState) {
-        if(p.getisSuspendedReady() && lastState==READY || lastState==EXECUTE && timeProcess > 0){
+        if(p.getisSuspendedReady() && lastState==READY || lastState==EXECUTE){
             System.out.println("suspender LISTO");
         p.states(timeProcess, timeProcess, SUSPENDEDREADY, lastState);
           if((p.getTime() > timeCPU)){
@@ -84,17 +82,20 @@ public class ExecuteProcess {
           }
         
         }
+        else {
+            p.states(timeProcess, timeProcess += timeCPU, EXECUTE, READY);
+        }
     }
 
     private void isSuspendedLocked(Process p, States lastState) {
         if(p.getIsSuspendedLocked() && lastState==LOCKED){
             System.out.println("suspender bloqueado");
             p.states(timeProcess, timeProcess, SUSPENDEDLOCKED, lastState);
-            if(p.getEndEvent() && p.getisSuspendedReady()){
+            if(p.getisSuspendedReady()){
                 p.states(timeProcess, timeProcess, SUSPENDEDREADY, SUSPENDEDLOCKED);
             }
             p.states(timeProcess, timeProcess, LOCKED, SUSPENDEDLOCKED);
-        } else if(p.getEndEvent() && lastState==LOCKED){
+        } else if(lastState==LOCKED){
             if((p.getTime() > timeCPU)){
             p.states(timeProcess, timeProcess, READY, lastState);
             } else {
@@ -149,9 +150,33 @@ public class ExecuteProcess {
         return report.headerTable();
     }
 
-    public ArrayList<Object[]> getReportForSuspendedTransition() {
+    public ArrayList<Object[]> getReportForReadySuspendedReadyTransition() {
         ArrayList<Object[]> aux= new ArrayList<>();
-        ArrayList<Object[]> transitions= report.getReportForSuspendedTransition();
+        ArrayList<Object[]> transitions= report.getReportForReadySuspendedReadyTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForExecuteSuspendedReadyTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForExecuteSuspendedReadyTransition();
+        for (int i = 0; i < transitions.size(); i++) {
+            Object[] temp=transitions.get(i);
+            if(temp[0]!=null){
+                aux.add(transitions.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Object[]> getReportForLockeddSuspendedLockedTransition() {
+        ArrayList<Object[]> aux= new ArrayList<>();
+        ArrayList<Object[]> transitions= report.getReportForLockedSuspendedLockedTransition();
         for (int i = 0; i < transitions.size(); i++) {
             Object[] temp=transitions.get(i);
             if(temp[0]!=null){
